@@ -85,7 +85,7 @@ void category::printSet()
     Terminal::set_default();
 }
 
-vector<string> category::getSet()
+vector<string> &category::getSet()
 {
     return this->set;
 }

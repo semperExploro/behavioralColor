@@ -17,7 +17,7 @@ public:
     string getCategory();
     void remove(string input);
     char getColor();
-    vector<string> getSet();
+    vector<string> &getSet();
     void setTerminalColor();
     void addToSet(string input);
     void printSet();

@@ -74,6 +74,7 @@ void clearMemory(vector<category *> &input)
 
 void printRoundPrompt()
 {
+    std::cout << "MindHive Program V 1.0.0 BETA" << endl;
     std::cout << "Please choose which round to play by typing in a number" << endl;
     cout << "\t1 for Round 1" << endl;
     cout << "\t2 for Round 2" << endl;
@@ -117,27 +118,38 @@ std::stringstream printVector(vector<string> input)
 
 bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
 {
-    cout << "FLAG 1" << endl;
+    for (unsigned i = 0; i < gameSet.size(); i++)
+    {
+        if (gameSet[i]->getSet().size() == 0)
+        {
+            cout << "ERROR: No user input " << endl;
+            return false;
+        }
+    }
+
+    //cout << "FLAG 1" << endl;
     for (unsigned i = 0; i < correctSet.size(); i++)
     {
         for (unsigned k = 0; k < gameSet[i]->getSet().size(); k++)
         {
+            //cout << "Next set " << endl;
             for (unsigned w = 0; w < correctSet[i]->getSet().size(); w++)
             {
                 if (gameSet[i]->getSet().at(k) == correctSet[i]->getSet().at(w))
                 {
                     gameSet[i]->getSet().erase(gameSet[i]->getSet().begin() + k);
-                    cout << "Sizing " << gameSet[i]->getSet().size();
-                    cout << "Erasure" << endl;
+                    //cout << "Sizing " << gameSet[i]->getSet().size() << endl;
+                    //cout << "Erasure" << endl;
+                    break;
                 }
             }
         }
     }
 
-    cout << "FLAG 2" << endl;
+    //cout << "FLAG 2" << endl;
     for (unsigned i = 0; i < gameSet.size(); i++)
     {
-        cout << "sizing " << gameSet[i]->getSet().size() << endl;
+        // cout << "sizing " << gameSet[i]->getSet().size() << endl;
         if (gameSet[i]->getSet().size() != 0)
         {
             return false;
@@ -279,7 +291,7 @@ void roundOne(vector<category *> &input)
     }
     else
     {
-        cout << "Program ends with user insuccessful attempt" << endl;
+        cout << "Program ends with user unsuccessful attempt" << endl;
     }
     cout << "Completion time " << duration_cast<seconds>(end - start).count() << endl;
 }
