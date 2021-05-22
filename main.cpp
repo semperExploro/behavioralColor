@@ -704,7 +704,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
         }
     }
     //game begins
-    cout << "COMMANDS (Case Sensitive) Round 2 - Random word color" << endl;
+    cout << "COMMANDS (Case Sensitive) Round 3 - Random word color categories" << endl;
     cout << "\tTo add: 'A' <Word> <Category>" << endl;
     cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
@@ -910,7 +910,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
         }
     }
     //game begins
-    cout << "COMMANDS (Case Sensitive) Round 2 - Random word color" << endl;
+    cout << "COMMANDS (Case Sensitive) Round 4 - Standard word color categories" << endl;
     cout << "\tTo add: 'A' <Word> <Category>" << endl;
     cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
@@ -1012,7 +1012,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
             {
                 for (int col = 0; col < 5; col++)
                 {
-                    cout << "COLOR VALUE " << getColor(copyOfListWords, word) << endl;
+                  //  cout << "COLOR VALUE " << getColor(copyOfListWords, word) << endl;
                     if (setOfArrangements[row][col].first == " " && getColor(copyOfListWords, word) == colors.at(row))
                     {
                         //u          cout << "Intervnetion " << endl;
