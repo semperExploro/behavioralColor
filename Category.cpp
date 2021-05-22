@@ -22,17 +22,18 @@ void category::setColor(char input)
     this->color = input;
 }
 
-void category::remove(string input)
+bool category::remove(string input)
 {
     for (unsigned i = 0; i < colorSet.size(); i++)
     {
         if (colorSet[i].first == input)
         {
             colorSet.erase(colorSet.begin() + i);
-            return;
+            return true;
         }
     }
-    std::cout << "Unable to remove word " << std::endl;
+    std::cout << "ERROR: Unable to Remove Word " << std::endl;
+    return false;
 }
 
 char category::getColor()

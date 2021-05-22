@@ -13,7 +13,7 @@ public:
     ~category();
     category(std::string categoryName);
     string getCategory();
-    void remove(string input);
+    bool remove(string input);
     char getColor();
     vector<string> &getSet();
     void setTerminalColor();
