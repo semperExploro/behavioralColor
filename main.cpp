@@ -256,6 +256,10 @@ void roundOne(vector<category *> &input)
             cout << "=================================================" << endl;
             continue;
         }
+        if(fullList.size()==0){
+            break;
+        }
+
         if (!(alpha >> word))
         {
             cout << "ERROR: Invalid Read Word" << endl;
