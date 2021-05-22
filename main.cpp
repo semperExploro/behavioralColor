@@ -256,7 +256,9 @@ void roundOne(vector<category *> &input)
             cout << "=================================================" << endl;
             continue;
         }
-        if(fullList.size()==0){
+        if (listOfWords.size() == 0)
+        {
+            cout << "All Entries have been placed" << endl;
             break;
         }
 

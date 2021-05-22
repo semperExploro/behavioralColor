@@ -9,8 +9,6 @@ using std::vector;
 class category
 {
 
-
-
 public:
     ~category();
     category(std::string categoryName);
@@ -27,7 +25,7 @@ private:
     string categoryName;
     char color;
     vector<string> set;
-    
+    std::pair<string, char> colorSet;
 };
 
-#endif 
+#endif
