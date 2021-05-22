@@ -22,17 +22,35 @@ void category::setColor(char input)
     this->color = input;
 }
 
-bool category::remove(string input)
+bool category::remove(string input, int i)
 {
-    for (unsigned i = 0; i < colorSet.size(); i++)
+    switch (i)
     {
-        if (colorSet[i].first == input)
+    case 0:
+    {
+        for (unsigned i = 0; i < colorSet.size(); i++)
         {
-            colorSet.erase(colorSet.begin() + i);
-            return true;
+            if (colorSet[i].first == input)
+            {
+                colorSet.erase(colorSet.begin() + i);
+                return true;
+            }
         }
+        std::cout << "ERROR: Unable to Remove Word " << std::endl;
+        return false;
     }
-    std::cout << "ERROR: Unable to Remove Word " << std::endl;
+    case 1:
+        for (unsigned i = 0; i < set.size(); i++)
+        {
+            if (set[i] == input)
+            {
+                set.erase(set.begin() + i);
+                return true;
+            }
+        }
+        std::cout << "ERROR: Unable to Remove Word " << std::endl;
+        return false;
+    }
     return false;
 }
 

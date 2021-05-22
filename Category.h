@@ -13,8 +13,7 @@ public:
     ~category();
     category(std::string categoryName);
     string getCategory();
-    bool remove(string input);
-    char getColor();
+    bool remove(string input, int i) ;
     vector<string> &getSet();
     void setTerminalColor();
     void addToSet(string input);
@@ -22,7 +21,7 @@ public:
     void setColor(char input);
     void addToSet(string input, char color);
     vector<std::pair<string, char>> &getColorSet();
-
+    char getColor();
 private:
     string categoryName;
     char color;

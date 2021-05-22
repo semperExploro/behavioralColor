@@ -366,9 +366,9 @@ void roundOne(vector<category *> &input)
     cout << "WORD BANK --------------------------------------------------------------" << endl;
     printVector(listOfWords);
     cout << "========================================================================" << endl;
+    cout << "Your input: ";
 
     auto start = high_resolution_clock::now();
-
     while (getline(std::cin, userinput))
     {
         if (userinput.empty())
@@ -400,6 +400,7 @@ void roundOne(vector<category *> &input)
             cout << "WORD BANK --------------------------------------------------------------" << endl;
             printVector(listOfWords);
             cout << "========================================================================" << endl;
+            cout << "Your input: ";
 
             continue;
         }
@@ -440,7 +441,7 @@ void roundOne(vector<category *> &input)
         switch (command)
         {
         case 'R':
-            if (!fullList[category]->remove(word))
+            if (!fullList[category]->remove(word, 1))
             {
                 break;
             }
@@ -478,6 +479,7 @@ void roundOne(vector<category *> &input)
         cout << "WORD BANK --------------------------------------------------------------" << endl;
         printVector(listOfWords);
         cout << "========================================================================" << endl;
+        cout << "Your input: ";
 
         userinput.clear();
     }
@@ -540,6 +542,7 @@ void roundTwo(vector<category *> &input, vector<char> colors)
     cout << "========================================================================" << endl;
 
     auto start = high_resolution_clock::now();
+    cout << "Your input: ";
 
     while (getline(std::cin, userinput))
     {
@@ -572,6 +575,7 @@ void roundTwo(vector<category *> &input, vector<char> colors)
             cout << "WORD BANK --------------------------------------------------------------" << endl;
             printVector(listOfWords);
             cout << "========================================================================" << endl;
+            cout << "Your input: ";
 
             continue;
         }
@@ -613,7 +617,7 @@ void roundTwo(vector<category *> &input, vector<char> colors)
         {
         case 'R':
         {
-            if (!fullList[category]->remove(word))
+            if (!fullList[category]->remove(word, 0))
             {
                 break;
             }
@@ -651,6 +655,7 @@ void roundTwo(vector<category *> &input, vector<char> colors)
         cout << "WORD BANK --------------------------------------------------------------" << endl;
         printVector(listOfWords);
         cout << "========================================================================" << endl;
+        cout << "Your input: ";
 
         userinput.clear();
     }
@@ -677,7 +682,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
     {
         int getRandomSetNumber = 0;
         vector<string> copyOfSet = input[i]->getSet();
-       // cout << "i value " << i << " size " << copyOfSet.size() << endl;
+        // cout << "i value " << i << " size " << copyOfSet.size() << endl;
         for (int k = 0; k < 5; k++)
         {
 
@@ -720,8 +725,10 @@ void roundThree(vector<category *> &input, vector<char> colors)
     cout << "WORD BANK --------------------------------------------------------------" << endl;
     printVector(setOfArrangements);
     cout << "========================================================================" << endl;
+    cout << "Your input: ";
 
     auto start = high_resolution_clock::now();
+    cout << "Your input: ";
 
     while (getline(std::cin, userinput))
     {
@@ -754,6 +761,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
             cout << "WORD BANK --------------------------------------------------------------" << endl;
             printVector(setOfArrangements);
             cout << "========================================================================" << endl;
+            cout << "Your input: ";
 
             continue;
         }
@@ -795,7 +803,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
         {
         case 'R':
         {
-            if (!fullList[category]->remove(word))
+            if (!fullList[category]->remove(word, 0))
             {
                 break;
             }
@@ -857,6 +865,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
         cout << "WORD BANK --------------------------------------------------------------" << endl;
         printVector(setOfArrangements);
         cout << "========================================================================" << endl;
+        cout << "Your input: ";
 
         userinput.clear();
     }
