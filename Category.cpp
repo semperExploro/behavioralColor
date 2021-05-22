@@ -24,11 +24,11 @@ void category::setColor(char input)
 
 void category::remove(string input)
 {
-    for (unsigned i = 0; i < set.size(); i++)
+    for (unsigned i = 0; i < colorSet.size(); i++)
     {
-        if (set[i] == input)
+        if (colorSet[i].first == input)
         {
-            set.erase(set.begin() + i);
+            colorSet.erase(colorSet.begin() + i);
             return;
         }
     }

@@ -77,7 +77,6 @@ void clearMemory(vector<category *> &input)
 
 void printRoundPrompt()
 {
-    std::cout << "MindHive Program V 1.0.0 BETA" << endl;
     std::cout << "Please choose which round to play by typing in a number" << endl;
     cout << "\t1 for Round 1" << endl;
     cout << "\t2 for Round 2" << endl;
@@ -100,10 +99,9 @@ void printCategory(vector<category *> &fullList)
     }
 }
 
-void printCategory(vector<category *> &fullList, int i)
+void printCategory(vector<category *> &fullList, int k)
 {
-    int k = i;
-    for (unsigned i = 0; i < fullList.size(); i++)
+    for (unsigned i = k; i < fullList.size(); i++)
     {
         cout << i << " " << fullList[i]->getCategory() << "{";
         vector<std::pair<string, char>> copyOfSet = fullList[i]->getColorSet();
@@ -137,15 +135,6 @@ void printCategory(vector<category *> &fullList, int i)
         cout << "}" << endl;
     }
 }
-/*
-void printSet(vector<category *> input, string word, int type)
-{
-    for (int i = 0; i < input.size(); i++)
-    {
-        printVector(input[i]->getSet(), word, type);
-    }
-}
-*/
 
 void removeElement(vector<string> &input, string word)
 {
@@ -176,7 +165,11 @@ void printVector(vector<string> input)
     while (input.size() != 0)
     {
         int getRandom = (int)(input.size() * (rand() / (RAND_MAX + 1.0)));
-        cout << input[getRandom] << "\t";
+        cout << input[getRandom];
+        for (int i = input[getRandom].length(); i < 20; i++)
+        {
+            cout << " ";
+        }
         input.erase(input.begin() + getRandom);
         i++;
         if (i % 5 == 0)
@@ -217,7 +210,11 @@ void printVector(vector<std::pair<string, char>> input)
             Terminal::color_fg(false, Terminal::WHITE);
         }
 
-        cout << input[getRandom].first << "\t";
+        cout << input[getRandom].first;
+        for (int i = input[getRandom].first.length(); i < 20; i++)
+        {
+            cout << " ";
+        }
         input.erase(input.begin() + getRandom);
         i++;
         if (i % 5 == 0)
@@ -320,11 +317,11 @@ void roundOne(vector<category *> &input)
     }
 
     std::string userinput;
-    cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
+    cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
     printCategory(fullList);
-    cout << "WORD BANK ---------------------------------" << endl;
+    cout << "WORD BANK --------------------------------------------------------------" << endl;
     printVector(listOfWords);
-    cout << "=================================================" << endl;
+    cout << "========================================================================" << endl;
 
     auto start = high_resolution_clock::now();
 
@@ -354,11 +351,12 @@ void roundOne(vector<category *> &input)
             cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
             cout << "\tTo Stop or Done Inputting: Q" << endl;
             cout << "\tTo Help: H" << endl;
-            cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
+            cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
             printCategory(fullList);
-            cout << "WORD BANK ---------------------------------" << endl;
+            cout << "WORD BANK --------------------------------------------------------------" << endl;
             printVector(listOfWords);
-            cout << "=================================================" << endl;
+            cout << "========================================================================" << endl;
+
             continue;
         }
         if (listOfWords.size() == 0)
@@ -428,11 +426,12 @@ void roundOne(vector<category *> &input)
             cout << "BAD COMMAND" << endl;
         }
         std::string userinput;
-        cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
+        cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
         printCategory(fullList);
-        cout << "WORD BANK ---------------------------------" << endl;
+        cout << "WORD BANK --------------------------------------------------------------" << endl;
         printVector(listOfWords);
-        cout << "=================================================" << endl;
+        cout << "========================================================================" << endl;
+
         userinput.clear();
     }
     auto end = high_resolution_clock::now();
@@ -487,11 +486,11 @@ void roundTwo(vector<category *> &input, vector<char> colors)
     }
 
     std::string userinput;
-    cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
-    printCategory(fullList,0);
-    cout << "WORD BANK ---------------------------------" << endl;
+    cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
+    printCategory(fullList, 0);
+    cout << "WORD BANK --------------------------------------------------------------" << endl;
     printVector(listOfWords);
-    cout << "=================================================" << endl;
+    cout << "========================================================================" << endl;
 
     auto start = high_resolution_clock::now();
 
@@ -521,11 +520,12 @@ void roundTwo(vector<category *> &input, vector<char> colors)
             cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
             cout << "\tTo Stop or Done Inputting: Q" << endl;
             cout << "\tTo Help: H" << endl;
-            cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
-            printCategory(fullList);
-            cout << "WORD BANK ---------------------------------" << endl;
+            cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
+            printCategory(fullList, 0);
+            cout << "WORD BANK --------------------------------------------------------------" << endl;
             printVector(listOfWords);
-            cout << "=================================================" << endl;
+            cout << "========================================================================" << endl;
+
             continue;
         }
         if (listOfWords.size() == 0)
@@ -567,8 +567,7 @@ void roundTwo(vector<category *> &input, vector<char> colors)
         case 'R':
         {
             fullList[category]->remove(word);
-            int getRandomColorNumber = (int)(colors.size() * (rand() / (RAND_MAX + 1.0)));
-            listOfWords.push_back(std::make_pair(word, colors.at(getRandomColorNumber)));
+            listOfWords.push_back(std::make_pair(word, getColor(copyOfListWords, word)));
         }
         break;
         case 'A':
@@ -597,11 +596,12 @@ void roundTwo(vector<category *> &input, vector<char> colors)
             cout << "BAD COMMAND" << endl;
         }
         std::string userinput;
-        cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
-        printCategory(fullList,0);
-        cout << "WORD BANK ---------------------------------" << endl;
+        cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
+        printCategory(fullList, 0);
+        cout << "WORD BANK --------------------------------------------------------------" << endl;
         printVector(listOfWords);
-        cout << "=================================================" << endl;
+        cout << "========================================================================" << endl;
+
         userinput.clear();
     }
     auto end = high_resolution_clock::now();
@@ -615,10 +615,13 @@ void roundTwo(vector<category *> &input, vector<char> colors)
         cout << "Program ends with user unsuccessful attempt" << endl;
     }
     cout << "Completion time " << duration_cast<seconds>(end - start).count() << " seconds" << endl;
-    cout << "---------------------------------------------------------------" << endl;
+    cout << "END OF ROUND -----------------------------------------------------------" << endl;
 }
+
 int main()
 {
+    std::cout << "MindHive Program V 1.1.0 BETA" << endl;
+
     vector<char> colors;
     colors.push_back('G');
     colors.push_back('Y');
