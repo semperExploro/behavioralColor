@@ -4,13 +4,16 @@
 #include <string>
 #include <sstream>
 #include "Terminal.h"
-#include <ctime>
+#include <chrono>
 #include <cstdlib>
 
 using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
+using namespace std;
+
+using namespace chrono;
 
 vector<category *> loadSet()
 {
@@ -76,6 +79,7 @@ void printRoundPrompt()
     cout << "\t2 for Round 2" << endl;
     cout << "\t3 for Round 3" << endl;
     cout << "\t4 for Round 4" << endl;
+    cout << "\t100 to Quit" << endl;
 }
 
 void printCategory(vector<category *> &fullList)
@@ -113,24 +117,29 @@ std::stringstream printVector(vector<string> input)
 
 bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
 {
+    cout << "FLAG 1" << endl;
     for (unsigned i = 0; i < correctSet.size(); i++)
     {
         for (unsigned k = 0; k < gameSet[i]->getSet().size(); k++)
         {
             for (unsigned w = 0; w < correctSet[i]->getSet().size(); w++)
             {
-                if (gameSet[i]->getSet().at(i) == correctSet[i]->getSet().at(w))
+                if (gameSet[i]->getSet().at(k) == correctSet[i]->getSet().at(w))
                 {
                     gameSet[i]->getSet().erase(gameSet[i]->getSet().begin() + k);
+                    cout << "Sizing " << gameSet[i]->getSet().size();
+                    cout << "Erasure" << endl;
                 }
             }
         }
     }
-    for (unsigned i = 0; i < correctSet.size(); i++)
+
+    cout << "FLAG 2" << endl;
+    for (unsigned i = 0; i < gameSet.size(); i++)
     {
-        if (correctSet[i]->getSet().size() != 0)
+        cout << "sizing " << gameSet[i]->getSet().size() << endl;
+        if (gameSet[i]->getSet().size() != 0)
         {
-            cout << "User defined set is wrong " << endl;
             return false;
         }
     }
@@ -144,16 +153,16 @@ void roundOne(vector<category *> &input)
     for (unsigned i = 0; i < input.size(); i++)
     {
         vector<string> copyOfSet = input[i]->getSet();
-        // cout<<"i value "<<i<<" size "<<copyOfSet.size()<<endl;
-        for (int k = 0; k < 5; k++)
+        //cout << "i value " << i << " size " << copyOfSet.size() << endl;
+        for (int k = 0; k < 1; k++)
         {
             int getRandom = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
-            //  cout<<"random number "<<getRandom<<endl;
+            //cout << "random number " << getRandom << endl;
 
             listOfWords.push_back(copyOfSet[getRandom]);
             //cout<<"done push back"<<endl;
             copyOfSet.erase(copyOfSet.begin() + getRandom);
-            // cout<<"round complete"<<endl;
+            //  cout << "round complete" << endl;
         }
     }
 
@@ -163,7 +172,8 @@ void roundOne(vector<category *> &input)
     cout << "COMMANDS" << endl;
     cout << "\tTo add: 'A' <Word> <Category>" << endl;
     cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
-    cout << "\tTo Stop: Q" << endl;
+    cout << "\tTo Stop or Done Inputting: Q" << endl;
+    cout << "\tTo Help: H" << endl;
     vector<category *> fullList;
     for (int i = 0; i < 4; i++)
     {
@@ -179,9 +189,7 @@ void roundOne(vector<category *> &input)
     cout << delta.str();
     cout << "=================================================" << endl;
 
-    std::clock_t start;
-    double duration;
-    start = std::clock();
+    auto start = high_resolution_clock::now();
 
     while (getline(std::cin, userinput))
     {
@@ -195,25 +203,41 @@ void roundOne(vector<category *> &input)
         int category;
         if (!(alpha >> command))
         {
-            cout << "Error: Invalid command read" << endl;
+            cout << "ERROR: Invalid command read" << endl;
         }
         if (command == 'Q')
         {
             cout << "Quitting" << endl;
             break;
         }
-
+        if (command == 'H')
+        {
+            cout << "COMMANDS" << endl;
+            cout << "\tTo add: 'A' <Word> <Category>" << endl;
+            cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
+            cout << "\tTo Stop or Done Inputting: Q" << endl;
+            cout << "\tTo Help: H" << endl;
+            cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
+            printCategory(fullList);
+            cout << "REMAINING WORDS ---------------------------------" << endl;
+            cout << delta.str();
+            cout << "=================================================" << endl;
+            continue;
+        }
         if (!(alpha >> word))
         {
-            cout << "Error: Invalid read word" << endl;
+            cout << "ERROR: Invalid Read Word" << endl;
+            continue;
         }
         if (!(alpha >> category))
         {
-            cout << "Error: Bad number input" << endl;
+            cout << "ERROR: Bad Category Input" << endl;
+            continue;
         }
         if (!(category <= 3 && category >= 0))
         {
-            cout << "number is out of bounds" << endl;
+            cout << "ERROR: Invalid Category" << endl;
+            continue;
         }
         bool isFound = false;
         for (unsigned i = 0; i < listOfWords.size(); i++)
@@ -225,7 +249,8 @@ void roundOne(vector<category *> &input)
         }
         if (!isFound)
         {
-            cout << "Invalid word, does not match any words in Remaining words list" << endl;
+            cout << "INVALID WORD: does not match any words in Remaining words list" << endl;
+            continue;
         }
         switch (command)
         {
@@ -236,7 +261,7 @@ void roundOne(vector<category *> &input)
             fullList[category]->addToSet(word);
             break;
         default:
-            cout << "Bad command" << endl;
+            cout << "BAD COMMAND" << endl;
         }
         std::string userinput;
         cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
@@ -246,7 +271,7 @@ void roundOne(vector<category *> &input)
         cout << "=================================================" << endl;
         userinput.clear();
     }
-    duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
+    auto end = high_resolution_clock::now();
 
     if (isCorrectSet(input, fullList))
     {
@@ -256,7 +281,7 @@ void roundOne(vector<category *> &input)
     {
         cout << "Program ends with user insuccessful attempt" << endl;
     }
-    cout << "Duration " << duration << endl;
+    cout << "Completion time " << duration_cast<seconds>(end - start).count() << endl;
 }
 
 int main()
@@ -278,6 +303,11 @@ int main()
             break;
         case 4:
             break;
+        case 100:
+            return 0;
+            break;
+        default:
+            cout << "ERROR: Invalid Menu Option" << endl;
         }
         printRoundPrompt();
     }
