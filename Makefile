@@ -4,7 +4,7 @@ DEBUGGING_FLAGS = -g -O0
 CFLAGS = $(CONSERVATIVE_FLAGS) $(DEBUGGING_FLAGS)
 
 mindHive: main.o Category.o
-	$(CC) -o mindHive main.o Category.o -static-libgcc -static-libstdc++ $(CFLAGS)
+	$(CC) -o mindHive main.o Category.o $(CFLAGS)
 
 main.o: Category.o
 	$(CC) -c main.cpp $(CFLAGS)

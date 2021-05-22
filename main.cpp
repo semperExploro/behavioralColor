@@ -80,7 +80,7 @@ void printRoundPrompt()
     cout << "\t2 for Round 2" << endl;
     cout << "\t3 for Round 3" << endl;
     cout << "\t4 for Round 4" << endl;
-    cout << "\t100 to Quit" << endl;
+    cout << "\t5 to Quit" << endl;
 }
 
 void printCategory(vector<category *> &fullList)
@@ -96,24 +96,43 @@ void printCategory(vector<category *> &fullList)
         cout << "}" << endl;
     }
 }
-
-std::stringstream printVector(vector<string> input)
+/*
+void printSet(vector<category *> input, string word, int type)
 {
-    std::stringstream alpha;
+    for (int i = 0; i < input.size(); i++)
+    {
+        printVector(input[i]->getSet(), word, type);
+    }
+}
+*/
+
+void removeElement(vector<string> &input, string word)
+{
+    for (unsigned i = 0; i < input.size(); i++)
+    {
+        if (input[i] == word)
+        {
+            input.erase(input.begin() + i);
+        }
+    }
+}
+void printVector(vector<string> input)
+{
+
     int i = 0;
     //cout << input.size() << endl;
     while (input.size() != 0)
     {
         int getRandom = (int)(input.size() * (rand() / (RAND_MAX + 1.0)));
-        alpha << input[getRandom] << "\t";
+        cout << input[getRandom] << "\t";
         input.erase(input.begin() + getRandom);
         i++;
         if (i % 5 == 0)
         {
-            alpha << endl;
+            cout << "\n";
         }
     }
-    return alpha;
+    cout << endl;
 }
 
 bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
@@ -179,7 +198,7 @@ void roundOne(vector<category *> &input)
             //  cout << "round complete" << endl;
         }
     }
-
+    vector<string> copyOfListWords = listOfWords;
     //cout << "flag 2" << endl;
 
     //game begins
@@ -194,13 +213,12 @@ void roundOne(vector<category *> &input)
         fullList.push_back(new category(input[i]->getCategory()));
         cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
     }
-    std::stringstream delta = printVector(listOfWords);
 
     std::string userinput;
     cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
     printCategory(fullList);
-    cout << "REMAINING WORDS ---------------------------------" << endl;
-    cout << delta.str();
+    cout << "WORD BANK ---------------------------------" << endl;
+    printVector(listOfWords);
     cout << "=================================================" << endl;
 
     auto start = high_resolution_clock::now();
@@ -233,8 +251,8 @@ void roundOne(vector<category *> &input)
             cout << "\tTo Help: H" << endl;
             cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
             printCategory(fullList);
-            cout << "REMAINING WORDS ---------------------------------" << endl;
-            cout << delta.str();
+            cout << "WORD BANK ---------------------------------" << endl;
+            printVector(listOfWords);
             cout << "=================================================" << endl;
             continue;
         }
@@ -254,9 +272,9 @@ void roundOne(vector<category *> &input)
             continue;
         }
         bool isFound = false;
-        for (unsigned i = 0; i < listOfWords.size(); i++)
+        for (unsigned i = 0; i < copyOfListWords.size(); i++)
         {
-            if (listOfWords[i] == word)
+            if (copyOfListWords[i] == word)
             {
                 isFound = true;
             }
@@ -270,6 +288,8 @@ void roundOne(vector<category *> &input)
         {
         case 'R':
             fullList[category]->remove(word);
+            listOfWords.push_back(word);
+
             break;
         case 'A':
         {
@@ -288,6 +308,7 @@ void roundOne(vector<category *> &input)
             else
             {
                 fullList[category]->addToSet(word);
+                removeElement(listOfWords, word);
             }
         }
         break;
@@ -298,8 +319,8 @@ void roundOne(vector<category *> &input)
         std::string userinput;
         cout << "CATEGORIES AND ITEMS SO FAR ---------------------" << endl;
         printCategory(fullList);
-        cout << "REMAINING WORDS ---------------------------------" << endl;
-        cout << delta.str();
+        cout << "WORD BANK ---------------------------------" << endl;
+        printVector(listOfWords);
         cout << "=================================================" << endl;
         userinput.clear();
     }
@@ -322,10 +343,18 @@ int main()
     vector<category *> workingSet = loadSet();
 
     printRoundPrompt();
-    int roundInput;
-    while (std::cin >> roundInput)
+    string roundInput;
+    while (getline(cin, roundInput))
     {
-        switch (roundInput)
+        if (roundInput.empty())
+        {
+            continue;
+        }
+
+        stringstream omega(roundInput);
+        int userChoice;
+        omega >> userChoice;
+        switch (userChoice)
         {
         case 1:
             roundOne(workingSet);
@@ -336,7 +365,7 @@ int main()
             break;
         case 4:
             break;
-        case 100:
+        case 5:
             return 0;
             break;
         default:
