@@ -111,20 +111,19 @@ void printCategory(vector<category *> &fullList, int k)
             char chosenColor = copyOfSet[i].second;
             switch (chosenColor)
             {
+            case 'B':
+                Terminal::color_fg(false, Terminal::BLUE);
+
+                break;
             case 'G':
                 Terminal::color_fg(false, Terminal::GREEN);
 
                 break;
-            case 'Y':
-                Terminal::color_fg(false, Terminal::YELLOW);
-
-                break;
-            case 'M':
-                Terminal::color_fg(false, Terminal::MAGENTA);
-
+            case 'U':
+                Terminal::color_fg(false, Terminal::BROWN);
                 break;
             case 'C':
-                Terminal::color_fg(false, Terminal::CYAN);
+                Terminal::color_fg(false, Terminal::RED);
 
                 break;
             default:
@@ -191,20 +190,19 @@ void printVector(vector<std::pair<string, char>> input)
         char chosenColor = input[getRandom].second;
         switch (chosenColor)
         {
+        case 'B':
+            Terminal::color_fg(false, Terminal::BLUE);
+
+            break;
         case 'G':
             Terminal::color_fg(false, Terminal::GREEN);
 
             break;
-        case 'Y':
-            Terminal::color_fg(false, Terminal::YELLOW);
-
-            break;
-        case 'M':
-            Terminal::color_fg(false, Terminal::MAGENTA);
-
+        case 'U':
+            Terminal::color_fg(false, Terminal::BROWN);
             break;
         case 'C':
-            Terminal::color_fg(false, Terminal::CYAN);
+            Terminal::color_fg(false, Terminal::RED);
 
             break;
         default:
@@ -237,23 +235,24 @@ void printVector(std::pair<string, char> setOfArrangements[5][5])
             char chosenColor = setOfArrangements[row][col].second;
             switch (chosenColor)
             {
+            case 'B':
+                Terminal::color_fg(false, Terminal::BLUE);
+
+                break;
             case 'G':
                 Terminal::color_fg(false, Terminal::GREEN);
 
                 break;
-            case 'Y':
-                Terminal::color_fg(false, Terminal::YELLOW);
-
-                break;
-            case 'M':
-                Terminal::color_fg(false, Terminal::MAGENTA);
+            case 'U':
+                Terminal::color_fg(false, Terminal::BROWN);
 
                 break;
             case 'C':
-                Terminal::color_fg(false, Terminal::CYAN);
+                Terminal::color_fg(false, Terminal::RED);
 
                 break;
             default:
+                Terminal::color_fg(false, Terminal::WHITE);
                 Terminal::color_fg(false, Terminal::WHITE);
             }
             cout << setOfArrangements[row][col].first;

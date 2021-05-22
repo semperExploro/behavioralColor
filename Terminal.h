@@ -21,7 +21,7 @@ public:
     YELLOW,
     BLUE,
     MAGENTA,
-    CYAN,
+    BROWN,
     WHITE,
     DEFAULT_COLOR = 9
   };

@@ -72,20 +72,19 @@ void category::setTerminalColor()
     char chosenColor = this->getColor();
     switch (chosenColor)
     {
+    case 'B':
+        Terminal::color_fg(false, Terminal::BLUE);
+
+        break;
     case 'G':
         Terminal::color_fg(false, Terminal::GREEN);
 
         break;
-    case 'Y':
-        Terminal::color_fg(false, Terminal::YELLOW);
-
-        break;
-    case 'M':
-        Terminal::color_fg(false, Terminal::MAGENTA);
-
+    case 'U':
+        Terminal::color_fg(false, Terminal::BROWN);
         break;
     case 'C':
-        Terminal::color_fg(false, Terminal::CYAN);
+        Terminal::color_fg(false, Terminal::RED);
 
         break;
     default:
