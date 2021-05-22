@@ -87,7 +87,7 @@ void printCategory(vector<category *> &fullList)
 {
     for (unsigned i = 0; i < fullList.size(); i++)
     {
-        cout << fullList[i]->getCategory() << "{";
+        cout << i << " " << fullList[i]->getCategory() << "{";
         vector<string> copyOfSet = fullList[i]->getSet();
         for (unsigned i = 0; i < copyOfSet.size(); i++)
         {
@@ -120,9 +120,9 @@ bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
 {
     for (unsigned i = 0; i < gameSet.size(); i++)
     {
-        if (gameSet[i]->getSet().size() == 0)
+        if (gameSet[i]->getSet().size() != 5)
         {
-            cout << "ERROR: No user input " << endl;
+            cout << "ERROR: User put too many or too little inputs " << endl;
             return false;
         }
     }
@@ -130,16 +130,17 @@ bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
     //cout << "FLAG 1" << endl;
     for (unsigned i = 0; i < correctSet.size(); i++)
     {
+        // cout << "Next set " << gameSet[i]->getCategory() << endl;
         for (unsigned k = 0; k < gameSet[i]->getSet().size(); k++)
         {
-            //cout << "Next set " << endl;
+            // cout << "Word " << gameSet[i]->getSet().at(k) << endl;
             for (unsigned w = 0; w < correctSet[i]->getSet().size(); w++)
             {
                 if (gameSet[i]->getSet().at(k) == correctSet[i]->getSet().at(w))
                 {
                     gameSet[i]->getSet().erase(gameSet[i]->getSet().begin() + k);
-                    //cout << "Sizing " << gameSet[i]->getSet().size() << endl;
-                    //cout << "Erasure" << endl;
+                    k--;
+                    //  cout << "Erasure" << endl;
                     break;
                 }
             }
@@ -149,7 +150,7 @@ bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
     //cout << "FLAG 2" << endl;
     for (unsigned i = 0; i < gameSet.size(); i++)
     {
-        // cout << "sizing " << gameSet[i]->getSet().size() << endl;
+        //cout << "sizing " << gameSet[i]->getCategory() << gameSet[i]->getSet().size() << endl;
         if (gameSet[i]->getSet().size() != 0)
         {
             return false;
@@ -166,7 +167,7 @@ void roundOne(vector<category *> &input)
     {
         vector<string> copyOfSet = input[i]->getSet();
         //cout << "i value " << i << " size " << copyOfSet.size() << endl;
-        for (int k = 0; k < 1; k++)
+        for (int k = 0; k < 5; k++)
         {
             int getRandom = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
             //cout << "random number " << getRandom << endl;
@@ -174,6 +175,7 @@ void roundOne(vector<category *> &input)
             listOfWords.push_back(copyOfSet[getRandom]);
             //cout<<"done push back"<<endl;
             copyOfSet.erase(copyOfSet.begin() + getRandom);
+
             //  cout << "round complete" << endl;
         }
     }
@@ -181,11 +183,11 @@ void roundOne(vector<category *> &input)
     //cout << "flag 2" << endl;
 
     //game begins
-    cout << "COMMANDS" << endl;
+    cout << "COMMANDS (Case Sensitive)" << endl;
     cout << "\tTo add: 'A' <Word> <Category>" << endl;
     cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
-    cout << "\tTo Stop or Done Inputting: Q" << endl;
-    cout << "\tTo Help: H" << endl;
+    cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
+    cout << "\tTo Help: 'H'" << endl;
     vector<category *> fullList;
     for (int i = 0; i < 4; i++)
     {
@@ -270,8 +272,26 @@ void roundOne(vector<category *> &input)
             fullList[category]->remove(word);
             break;
         case 'A':
-            fullList[category]->addToSet(word);
-            break;
+        {
+            bool isRepeat = false;
+            for (unsigned i = 0; i < fullList[category]->getSet().size(); i++)
+            {
+                if (fullList[category]->getSet().at(i) == word)
+                {
+                    cout << "ERROR: Repeat word " << endl;
+                    isRepeat = true;
+                }
+            }
+            if (isRepeat)
+            {
+            }
+            else
+            {
+                fullList[category]->addToSet(word);
+            }
+        }
+        break;
+
         default:
             cout << "BAD COMMAND" << endl;
         }
@@ -293,7 +313,8 @@ void roundOne(vector<category *> &input)
     {
         cout << "Program ends with user unsuccessful attempt" << endl;
     }
-    cout << "Completion time " << duration_cast<seconds>(end - start).count() << endl;
+    cout << "Completion time " << duration_cast<seconds>(end - start).count() << " seconds" << endl;
+    cout << "---------------------------------------------------------------" << endl;
 }
 
 int main()

@@ -1,6 +1,23 @@
 1
 A Splash 0
+A Field 2
+A Flora 2
+A Jungle 2
+A Blood 1
+A Tide 0
+A Ape 3
+A Incineration 1
+A Seaside 0
 A Revolution 1
-A Bush 2
-A Gazelle 3
+A Meadow 2
+A Ox 3
+A Inferno 1
+A Bear 3
+A River 0
+A Horse 3
+A Grass 2
+A Reservoir 0
+A Massacre 1
+A Dog 3
+A Dog 3
 Q
