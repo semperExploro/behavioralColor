@@ -43,6 +43,10 @@ void category::addToSet(string input)
 {
     this->set.push_back(input);
 }
+void category::addToSet(string input, char color)
+{
+    this->colorSet.push_back(std::make_pair(input, color));
+}
 
 void category::setTerminalColor()
 {
@@ -68,6 +72,10 @@ void category::setTerminalColor()
     default:
         Terminal::color_fg(false, Terminal::WHITE);
     }
+}
+vector<std::pair<string, char>> &category::getColorSet()
+{
+    return colorSet;
 }
 
 category::~category()

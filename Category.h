@@ -20,12 +20,14 @@ public:
     void addToSet(string input);
     void printSet();
     void setColor(char input);
+    void addToSet(string input, char color);
+    vector<std::pair<string, char>> &getColorSet();
 
 private:
     string categoryName;
     char color;
     vector<string> set;
-    std::pair<string, char> colorSet;
+    vector<std::pair<string, char>> colorSet;
 };
 
 #endif
