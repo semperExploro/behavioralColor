@@ -22,6 +22,19 @@ void category::setColor(char input)
     this->color = input;
 }
 
+void category::remove(string input)
+{
+    for (unsigned i = 0; i < set.size(); i++)
+    {
+        if (set[i] == input)
+        {
+            set.erase(set.begin() + i);
+            return;
+        }
+    }
+    std::cout << "Unable to remove word " << std::endl;
+}
+
 char category::getColor()
 {
     return this->color;
@@ -57,8 +70,8 @@ void category::setTerminalColor()
     }
 }
 
-category::~category(){
-    
+category::~category()
+{
 }
 
 void category::printSet()
