@@ -1,4 +1,4 @@
-4
+Y
 A Blood 1
 A Beagle 3
 A Bear 3
@@ -19,7 +19,7 @@ A Aquatic 0
 A Maritime 0
 A Meadow 2
 A Sea 0
-1 
+Y 
 A Moose 3
 A Rage 1
 A Revolution 1
@@ -40,7 +40,7 @@ A Meadow 2
 A Seaside 0
 A Leaf 2
 A Baboon 3
-3
+Y
 A Blood 1
 A Fuming 1
 A Rainfall 0
@@ -61,7 +61,7 @@ A Flora 2
 A Moose 3
 A Pool 0 
 A Aquatic 0
-2
+Y
 A Hate 1
 A Aquatic 0 
 A Deer 3

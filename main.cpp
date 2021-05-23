@@ -773,7 +773,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
             //  cout << "round complete" << endl;
         }
         globalSet.push_back(colors.at(getRandomColor));
-        cout << "Random value " << getRandomColor << endl;
+       // cout << "Random value " << getRandomColor << endl;
         colors.erase(colors.begin() + getRandomColor);
     }
     vector<std::pair<string, char>> copyOfListWords = listOfWords;
@@ -975,7 +975,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
     {
         fullList.push_back(new category(input[i]->getCategory()));
         cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
-        cout << input[i]->getColorSet().size() << endl;
+        //cout << input[i]->getColorSet().size() << endl;
     }
 
     std::string userinput;
@@ -1167,8 +1167,8 @@ int main()
             return 1;
         }
     }
-    printRoundPrompt();
-    /*
+ //   printRoundPrompt();
+    
     vector<int> sequence;
     sequence.push_back(0);
     sequence.push_back(1);
@@ -1218,7 +1218,7 @@ int main()
         cout << "ROUND " << i << ": Time\t " << grandList[i].first << " Finished Successfully? [0-> no, 1->Yes] " << grandList[i].second << endl;
     }
     cout << "Program Completion" << endl;
-    */
+    /*
     string roundInput;
     while (getline(cin, roundInput))
     {
@@ -1254,6 +1254,6 @@ int main()
 
         printRoundPrompt();
     }
-
+    */
     clearMemory(workingSet);
 }
