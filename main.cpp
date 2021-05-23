@@ -1196,22 +1196,29 @@ int main()
         switch (getRandom)
         {
         case 0:
-            cout << "You're about to start ROUND 1 - Words of Same Color. ";
+            //  cout << "You're about to start ROUND 1 - Words of Same Color. ";
+            cout << "You're about to start a new round. ";
             startMenu();
             roundOne(workingSet);
             break;
         case 1:
-            cout << "You're about to start ROUND 2 - Words of Random Different Colors. ";
+            // cout << "You're about to start ROUND 2 - Words of Random Different Colors. ";
+            cout << "You're about to start a new round. ";
+
             startMenu();
             roundTwo(workingSet, colors);
             break;
         case 2:
-            cout << "You're about to start ROUND 3 - Words of With Wrong Color Category. ";
+            // cout << "You're about to start ROUND 3 - Words of With Wrong Color Category. ";
+            cout << "You're about to start a new round. ";
+
             startMenu();
             roundThree(workingSet, colors);
             break;
         case 3:
-            cout << "You're about to start ROUND 4 - Words of Correct Color Category. ";
+            //  cout << "You're about to start ROUND 4 - Words of Correct Color Category. ";
+            cout << "You're about to start a new round. ";
+
             startMenu();
             roundFour(workingSet, colors);
             break;
