@@ -1145,7 +1145,6 @@ void startMenu()
         {
             cout << endl;
             cout << "Do you want to start? [Y/N]. If you want to stop the program entirely just do ctrl+c Case Sensitive: ";
-            break;
         }
         cout << endl;
         cout << "Invalid Input";
