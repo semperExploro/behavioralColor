@@ -773,7 +773,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
             //  cout << "round complete" << endl;
         }
         globalSet.push_back(colors.at(getRandomColor));
-       // cout << "Random value " << getRandomColor << endl;
+        // cout << "Random value " << getRandomColor << endl;
         colors.erase(colors.begin() + getRandomColor);
     }
     vector<std::pair<string, char>> copyOfListWords = listOfWords;
@@ -1141,6 +1141,15 @@ void startMenu()
         {
             break;
         }
+        if (roundInput == "N")
+        {
+            cout << endl;
+            cout << "Do you want to start? [Y/N]. If you want to stop the program entirely just do ctrl+c Case Sensitive: ";
+            break;
+        }
+        cout << endl;
+        cout << "Invalid Input";
+        cout << "Do you want to start? [Y/N] Case Sensitive: ";
     }
 }
 
@@ -1167,8 +1176,8 @@ int main()
             return 1;
         }
     }
- //   printRoundPrompt();
-    
+    //   printRoundPrompt();
+
     vector<int> sequence;
     sequence.push_back(0);
     sequence.push_back(1);
