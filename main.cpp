@@ -7,6 +7,7 @@
 #include "Terminal.h"
 #include <chrono>
 #include <cstdlib>
+#include <time.h>
 
 using std::cout;
 using std::endl;
@@ -366,10 +367,11 @@ void roundOne(vector<category *> &input)
     cout << "WORD BANK --------------------------------------------------------------" << endl;
     printVector(listOfWords);
     cout << "========================================================================" << endl;
-
+    cout << "User input: ";
     auto start = high_resolution_clock::now();
     while (getline(std::cin, userinput))
     {
+
         if (userinput.empty())
         {
             continue;
@@ -405,22 +407,29 @@ void roundOne(vector<category *> &input)
         if (listOfWords.size() == 0)
         {
             cout << "All Entries have been placed" << endl;
+
             break;
         }
 
         if (!(alpha >> word))
         {
             cout << "ERROR: Invalid Read Word" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(alpha >> category))
         {
             cout << "ERROR: Bad Category Input" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(category <= 3 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
+            cout << "User input: ";
+
             continue;
         }
         bool isFound = false;
@@ -477,6 +486,7 @@ void roundOne(vector<category *> &input)
         cout << "WORD BANK --------------------------------------------------------------" << endl;
         printVector(listOfWords);
         cout << "========================================================================" << endl;
+        cout << "User input: ";
 
         userinput.clear();
     }
@@ -576,25 +586,25 @@ void roundTwo(vector<category *> &input, vector<char> colors)
 
             continue;
         }
-        if (listOfWords.size() == 0)
-        {
-            cout << "All Entries have been placed" << endl;
-            break;
-        }
-
         if (!(alpha >> word))
         {
             cout << "ERROR: Invalid Read Word" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(alpha >> category))
         {
             cout << "ERROR: Bad Category Input" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(category <= 3 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
+            cout << "User input: ";
+
             continue;
         }
         bool isFound = false;
@@ -652,6 +662,7 @@ void roundTwo(vector<category *> &input, vector<char> colors)
         cout << "WORD BANK --------------------------------------------------------------" << endl;
         printVector(listOfWords);
         cout << "========================================================================" << endl;
+        cout << "User input: ";
 
         userinput.clear();
     }
@@ -676,40 +687,41 @@ void roundThree(vector<category *> &input, vector<char> colors)
     //add words
     vector<std::pair<string, char>> listOfWords;
     vector<char> globalSet;
+    vector<char> copyoOfColors = colors;
     for (unsigned i = 0; i < input.size(); i++)
     {
         int getRandomSetNumber = 0;
         vector<string> copyOfSet = input[i]->getSet();
-        // cout << "i value " << i << " size " << copyOfSet.size() << endl;
+        //  cout << "i value " << i << " size " << copyoOfColors[i] << endl;
+        // srand(time(0));
+        // cout << "Colors size " << colors.size() << endl;
         int getRandomColor = (int)(colors.size() * (rand() / (RAND_MAX + 1.0)));
+        //cout << "I value " << copyoOfColors[i] << "Random value " << colors[getRandomColor] << endl;
+        if (colors[getRandomColor] == copyoOfColors[i] && colors.size() != 1)
+        {
+            i--;
+            continue;
+        }
 
         for (int k = 0; k < 5; k++)
         {
 
-            // cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
+            //cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
 
             listOfWords.push_back(std::make_pair(copyOfSet[getRandomSetNumber], colors.at(getRandomColor)));
-
+            //cout<<"done push back"<<endl;
+            copyOfSet.erase(copyOfSet.begin() + getRandomSetNumber);
             getRandomSetNumber++;
             //  cout << "round complete" << endl;
         }
         globalSet.push_back(colors.at(getRandomColor));
+        cout << "Random value " << getRandomColor << endl;
         colors.erase(colors.begin() + getRandomColor);
     }
-    colors = globalSet;
     vector<std::pair<string, char>> copyOfListWords = listOfWords;
-    int i = 0;
-    std::pair<string, char> setOfArrangements[5][5];
-    for (int row = 0; row < 5; row++)
-    {
-        for (int col = 0; col < 5; col++)
-        {
-            setOfArrangements[row][col] = std::make_pair(listOfWords[i].first, listOfWords[i].second);
-            i++;
-        }
-    }
+
     //game begins
-    cout << "COMMANDS (Case Sensitive) Round 3 - Random word color categories" << endl;
+    cout << "COMMANDS (Case Sensitive) Round 2 - Random word color" << endl;
     cout << "\tTo add: 'A' <Word> <Category>" << endl;
     cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
@@ -725,7 +737,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
     cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
     printCategory(fullList, 0);
     cout << "WORD BANK --------------------------------------------------------------" << endl;
-    printVector(setOfArrangements);
+    printVector(listOfWords);
     cout << "========================================================================" << endl;
 
     auto start = high_resolution_clock::now();
@@ -759,7 +771,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
             cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
             printCategory(fullList, 0);
             cout << "WORD BANK --------------------------------------------------------------" << endl;
-            printVector(setOfArrangements);
+            printVector(listOfWords);
             cout << "========================================================================" << endl;
 
             continue;
@@ -773,16 +785,22 @@ void roundThree(vector<category *> &input, vector<char> colors)
         if (!(alpha >> word))
         {
             cout << "ERROR: Invalid Read Word" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(alpha >> category))
         {
             cout << "ERROR: Bad Category Input" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(category <= 3 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
+            cout << "User input: ";
+
             continue;
         }
         bool isFound = false;
@@ -806,29 +824,15 @@ void roundThree(vector<category *> &input, vector<char> colors)
             {
                 break;
             }
-            //cout << "hello there" << endl;
-            for (int row = 0; row < 4; row++)
-            {
-                for (int col = 0; col < 5; col++)
-                {
-                    //cout << "COLOR VALUE " << getColor(copyOfListWords, word) << endl;
-                    if (setOfArrangements[row][col].first == " " && getColor(copyOfListWords, word) == colors.at(row))
-                    {
-                        //u          cout << "Intervnetion " << endl;
-                        setOfArrangements[row][col] = std::make_pair(word, colors.at(row));
-                        break;
-                    }
-                }
-            }
             listOfWords.push_back(std::make_pair(word, getColor(copyOfListWords, word)));
         }
         break;
         case 'A':
         {
             bool isRepeat = false;
-            for (unsigned i = 0; i < fullList[category]->getColorSet().size(); i++)
+            for (unsigned i = 0; i < fullList[category]->getSet().size(); i++)
             {
-                if (fullList[category]->getColorSet().at(i).first == word)
+                if (fullList[category]->getSet().at(i) == word)
                 {
                     cout << "ERROR: Repeat word " << endl;
                     isRepeat = true;
@@ -839,16 +843,6 @@ void roundThree(vector<category *> &input, vector<char> colors)
             }
             else
             {
-                for (int row = 0; row < 5; row++)
-                {
-                    for (int col = 0; col < 5; col++)
-                    {
-                        if (setOfArrangements[row][col].first == word)
-                        {
-                            setOfArrangements[row][col].first = " ";
-                        }
-                    }
-                }
                 fullList[category]->addToSet(word, getColor(listOfWords, word));
                 removeElement(listOfWords, word);
             }
@@ -862,8 +856,9 @@ void roundThree(vector<category *> &input, vector<char> colors)
         cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
         printCategory(fullList, 0);
         cout << "WORD BANK --------------------------------------------------------------" << endl;
-        printVector(setOfArrangements);
+        printVector(listOfWords);
         cout << "========================================================================" << endl;
+        cout << "User input: ";
 
         userinput.clear();
     }
@@ -906,18 +901,9 @@ void roundFour(vector<category *> &input, vector<char> colors)
         getRandomColorNumber++;
     }
     vector<std::pair<string, char>> copyOfListWords = listOfWords;
-    int i = 0;
-    std::pair<string, char> setOfArrangements[5][5];
-    for (int row = 0; row < 5; row++)
-    {
-        for (int col = 0; col < 5; col++)
-        {
-            setOfArrangements[row][col] = std::make_pair(listOfWords[i].first, listOfWords[i].second);
-            i++;
-        }
-    }
+
     //game begins
-    cout << "COMMANDS (Case Sensitive) Round 4 - Standard word color categories" << endl;
+    cout << "COMMANDS (Case Sensitive) Round 2 - Random word color" << endl;
     cout << "\tTo add: 'A' <Word> <Category>" << endl;
     cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
@@ -933,7 +919,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
     cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
     printCategory(fullList, 0);
     cout << "WORD BANK --------------------------------------------------------------" << endl;
-    printVector(setOfArrangements);
+    printVector(listOfWords);
     cout << "========================================================================" << endl;
 
     auto start = high_resolution_clock::now();
@@ -967,7 +953,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
             cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
             printCategory(fullList, 0);
             cout << "WORD BANK --------------------------------------------------------------" << endl;
-            printVector(setOfArrangements);
+            printVector(listOfWords);
             cout << "========================================================================" << endl;
 
             continue;
@@ -981,16 +967,22 @@ void roundFour(vector<category *> &input, vector<char> colors)
         if (!(alpha >> word))
         {
             cout << "ERROR: Invalid Read Word" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(alpha >> category))
         {
             cout << "ERROR: Bad Category Input" << endl;
+            cout << "User input: ";
+
             continue;
         }
         if (!(category <= 3 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
+            cout << "User input: ";
+
             continue;
         }
         bool isFound = false;
@@ -1014,29 +1006,15 @@ void roundFour(vector<category *> &input, vector<char> colors)
             {
                 break;
             }
-            //cout << "hello there" << endl;
-            for (int row = 0; row < 4; row++)
-            {
-                for (int col = 0; col < 5; col++)
-                {
-                    //  cout << "COLOR VALUE " << getColor(copyOfListWords, word) << endl;
-                    if (setOfArrangements[row][col].first == " " && getColor(copyOfListWords, word) == colors.at(row))
-                    {
-                        //u          cout << "Intervnetion " << endl;
-                        setOfArrangements[row][col] = std::make_pair(word, colors.at(row));
-                        break;
-                    }
-                }
-            }
             listOfWords.push_back(std::make_pair(word, getColor(copyOfListWords, word)));
         }
         break;
         case 'A':
         {
             bool isRepeat = false;
-            for (unsigned i = 0; i < fullList[category]->getColorSet().size(); i++)
+            for (unsigned i = 0; i < fullList[category]->getSet().size(); i++)
             {
-                if (fullList[category]->getColorSet().at(i).first == word)
+                if (fullList[category]->getSet().at(i) == word)
                 {
                     cout << "ERROR: Repeat word " << endl;
                     isRepeat = true;
@@ -1047,16 +1025,6 @@ void roundFour(vector<category *> &input, vector<char> colors)
             }
             else
             {
-                for (int row = 0; row < 5; row++)
-                {
-                    for (int col = 0; col < 5; col++)
-                    {
-                        if (setOfArrangements[row][col].first == word)
-                        {
-                            setOfArrangements[row][col].first = " ";
-                        }
-                    }
-                }
                 fullList[category]->addToSet(word, getColor(listOfWords, word));
                 removeElement(listOfWords, word);
             }
@@ -1070,8 +1038,9 @@ void roundFour(vector<category *> &input, vector<char> colors)
         cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
         printCategory(fullList, 0);
         cout << "WORD BANK --------------------------------------------------------------" << endl;
-        printVector(setOfArrangements);
+        printVector(listOfWords);
         cout << "========================================================================" << endl;
+        cout << "User input: ";
 
         userinput.clear();
     }
@@ -1131,7 +1100,7 @@ int main()
             return 1;
         }
     }
-    //printRoundPrompt();
+    printRoundPrompt();
 
     vector<int> sequence;
     sequence.push_back(0);
@@ -1143,6 +1112,11 @@ int main()
     {
         int randIndex = (int)(sequence.size() * (rand() / (RAND_MAX + 1.0)));
         int getRandom = sequence.at(randIndex);
+        cout << "COMMANDS (Case Sensitive) These works for all rounds" << endl;
+        cout << "\tTo add: 'A' <Word> <Category>" << endl;
+        cout << "\tTo Remove: 'R' <Word> <Category>" << endl;
+        cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
+        cout << "\tTo Help: 'H'" << endl;
         switch (getRandom)
         {
         case 0:
@@ -1195,6 +1169,7 @@ int main()
             roundTwo(workingSet, colors);
             break;
         case 3:
+            cout << "called " << endl;
             roundThree(workingSet, colors);
             break;
         case 4:
@@ -1206,8 +1181,10 @@ int main()
         default:
             cout << "ERROR: Invalid Menu Option" << endl;
         }
+
         printRoundPrompt();
     }
-*/
+    */
+
     clearMemory(workingSet);
 }
