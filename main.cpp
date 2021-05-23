@@ -7,6 +7,7 @@
 #include "Terminal.h"
 #include <chrono>
 #include <cstdlib>
+#include <ctime>
 #include <time.h>
 #include <tuple>
 using std::cout;
@@ -16,7 +17,7 @@ using std::vector;
 using namespace std;
 using namespace chrono;
 
-vector<std::tuple<int,double,bool>> grandList;
+vector<std::tuple<int, double, bool>> grandList;
 
 vector<category *> loadSet()
 {
@@ -375,7 +376,7 @@ char getColor(vector<std::pair<string, char>> &input, string word)
     return 0;
 }
 
-void roundOne(vector<category *> &input)
+bool roundOne(vector<category *> &input)
 {
     //add words
     vector<string> listOfWords;
@@ -385,6 +386,8 @@ void roundOne(vector<category *> &input)
         //cout << "i value " << i << " size " << copyOfSet.size() << endl;
         for (int k = 0; k < 5; k++)
         {
+            srand(time(0));
+
             int getRandom = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
             //cout << "random number " << getRandom << endl;
 
@@ -545,18 +548,21 @@ void roundOne(vector<category *> &input)
     cout << "Completion time " << time << " seconds" << endl;
     if (isCorrectSet(input, fullList))
     {
-        grandList.push_back(std::make_tuple(1,time, true));
+        grandList.push_back(std::make_tuple(1, time, true));
         cout << "Round ends with user successful attempt" << endl;
+        return true;
     }
     else
     {
-        grandList.push_back(std::make_tuple(1,time, false));
+        // grandList.push_back(std::make_tuple(4, time, false));
         cout << "Round ends with user unsuccessful attempt" << endl;
+        return false;
     }
     cout << "---------------------------------------------------------------" << endl;
+    return true;
 }
 
-void roundTwo(vector<category *> &input, vector<char> colors)
+bool roundTwo(vector<category *> &input, vector<char> colors)
 {
     //add words
     vector<std::pair<string, char>> listOfWords;
@@ -564,12 +570,16 @@ void roundTwo(vector<category *> &input, vector<char> colors)
     {
         vector<string> copyOfSet = input[i]->getSet();
         // cout << "i value " << i << " size " << copyOfSet.size() << endl;
+        srand(time(0));
+
         for (int k = 0; k < 5; k++)
         {
+            //   srand(time(0));
+
             int getRandomSetNumber = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
             int getRandomColorNumber = (int)(colors.size() * (rand() / (RAND_MAX + 1.0)));
 
-            //cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
+            cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
 
             listOfWords.push_back(std::make_pair(copyOfSet[getRandomSetNumber], colors.at(getRandomColorNumber)));
             //cout<<"done push back"<<endl;
@@ -729,18 +739,22 @@ void roundTwo(vector<category *> &input, vector<char> colors)
     cout << "Completion time " << time << " seconds" << endl;
     if (isCorrectSet(input, fullList))
     {
-        grandList.push_back(std::make_tuple(2,time, true));
+        grandList.push_back(std::make_tuple(2, time, true));
         cout << "Round ends with user successful attempt" << endl;
+        return true;
     }
     else
     {
-        grandList.push_back(std::make_tuple(2,time, false));
+        // grandList.push_back(std::make_tuple(4, time, false));
         cout << "Round ends with user unsuccessful attempt" << endl;
+        return false;
     }
+
     cout << "---------------------------------------------------------------" << endl;
+    return true;
 }
 
-void roundThree(vector<category *> &input, vector<char> colors)
+bool roundThree(vector<category *> &input, vector<char> colors)
 {
     //add words
     vector<std::pair<string, char>> listOfWords;
@@ -748,11 +762,11 @@ void roundThree(vector<category *> &input, vector<char> colors)
     vector<char> copyoOfColors = colors;
     for (unsigned i = 0; i < input.size(); i++)
     {
-        int getRandomSetNumber = 0;
         vector<string> copyOfSet = input[i]->getSet();
         //  cout << "i value " << i << " size " << copyoOfColors[i] << endl;
         // srand(time(0));
         // cout << "Colors size " << colors.size() << endl;
+
         int getRandomColor = (int)(colors.size() * (rand() / (RAND_MAX + 1.0)));
         //cout << "I value " << copyoOfColors[i] << "Random value " << colors[getRandomColor] << endl;
         if (colors[getRandomColor] == copyoOfColors[i] && colors.size() != 1)
@@ -765,11 +779,11 @@ void roundThree(vector<category *> &input, vector<char> colors)
         {
 
             //cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
+            int getRandomSetNumber = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
 
             listOfWords.push_back(std::make_pair(copyOfSet[getRandomSetNumber], colors.at(getRandomColor)));
             //cout<<"done push back"<<endl;
             copyOfSet.erase(copyOfSet.begin() + getRandomSetNumber);
-            getRandomSetNumber++;
             //  cout << "round complete" << endl;
         }
         globalSet.push_back(colors.at(getRandomColor));
@@ -929,36 +943,37 @@ void roundThree(vector<category *> &input, vector<char> colors)
     cout << "Completion time " << time << " seconds" << endl;
     if (isCorrectSet(input, fullList))
     {
-        grandList.push_back(std::make_tuple(3,time, true));
+        grandList.push_back(std::make_tuple(3, time, true));
         cout << "Round ends with user successful attempt" << endl;
+        return true;
     }
     else
     {
-        grandList.push_back(std::make_tuple(3,time, false));
+        // grandList.push_back(std::make_tuple(4, time, false));
         cout << "Round ends with user unsuccessful attempt" << endl;
+        return false;
     }
     cout << "---------------------------------------------------------------" << endl;
+    return true;
 }
 
-void roundFour(vector<category *> &input, vector<char> colors)
+bool roundFour(vector<category *> &input, vector<char> colors)
 {
     //add words
     vector<std::pair<string, char>> listOfWords;
     int getRandomColorNumber = 0;
     for (unsigned i = 0; i < input.size(); i++)
     {
-        int getRandomSetNumber = 0;
         vector<string> copyOfSet = input[i]->getSet();
         // cout << "i value " << i << " size " << copyOfSet.size() << endl;
         for (int k = 0; k < 5; k++)
         {
 
-            // cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
+            int getRandomSetNumber = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
 
             listOfWords.push_back(std::make_pair(copyOfSet[getRandomSetNumber], colors.at(getRandomColorNumber)));
             //cout<<"done push back"<<endl;
-            getRandomSetNumber++;
-            //  cout << "round complete" << endl;
+            copyOfSet.erase(copyOfSet.begin() + getRandomSetNumber);
         }
         getRandomColorNumber++;
     }
@@ -1116,15 +1131,18 @@ void roundFour(vector<category *> &input, vector<char> colors)
     // cout << fullList.at(0)->getColorSet().size() << endl;
     if (isCorrectSet(input, fullList))
     {
-        grandList.push_back(std::make_tuple(4,time, false));
+        grandList.push_back(std::make_tuple(4, time, true));
         cout << "Round ends with user successful attempt" << endl;
+        return true;
     }
     else
     {
-        grandList.push_back(std::make_tuple(4,time, false));
+        // grandList.push_back(std::make_tuple(4, time, false));
         cout << "Round ends with user unsuccessful attempt" << endl;
+        return false;
     }
     cout << "---------------------------------------------------------------" << endl;
+    return true;
 }
 
 void startMenu()
@@ -1144,7 +1162,7 @@ void startMenu()
         if (roundInput == "N")
         {
             cout << endl;
-            cout << "Do you want to start? [Y/N]. If you want to stop the program entirely just do ctrl+c Case Sensitive: ";
+            cout << "Do you want to start? [Y/N]. If you want to stop the program entirely just close the tab Case Sensitive: ";
             continue;
         }
         cout << endl;
@@ -1186,6 +1204,7 @@ int main()
 
     for (int i = 0; i < 4; i++)
     {
+        srand(time(0));
         int randIndex = (int)(sequence.size() * (rand() / (RAND_MAX + 1.0)));
         int getRandom = sequence.at(randIndex);
         cout << "COMMANDS (Case Sensitive) These works for all rounds" << endl;
@@ -1199,28 +1218,44 @@ int main()
             //  cout << "You're about to start ROUND 1 - Words of Same Color. ";
             cout << "You're about to start a new round 1. ";
             startMenu();
-            roundOne(workingSet);
+            while (!roundOne(workingSet))
+            {
+                cout << "You're about to start a new round 1. ";
+                startMenu();
+            }
             break;
         case 1:
             // cout << "You're about to start ROUND 2 - Words of Random Different Colors. ";
             cout << "You're about to start a new round 2. ";
 
             startMenu();
-            roundTwo(workingSet, colors);
+            while (!roundTwo(workingSet, colors))
+            {
+                cout << "You're about to start a new round 2. ";
+                startMenu();
+            }
             break;
         case 2:
             // cout << "You're about to start ROUND 3 - Words of With Wrong Color Category. ";
             cout << "You're about to start a new round 3. ";
 
             startMenu();
-            roundThree(workingSet, colors);
+            while (!roundThree(workingSet, colors))
+            {
+                cout << "You're about to start a new round 3. ";
+                startMenu();
+            }
             break;
         case 3:
             //  cout << "You're about to start ROUND 4 - Words of Correct Color Category. ";
             cout << "You're about to start a new round 4. ";
 
             startMenu();
-            roundFour(workingSet, colors);
+            while (!roundFour(workingSet, colors))
+            {
+                cout << "You're about to start a new round 4. ";
+                startMenu();
+            }
             break;
         }
         sequence.erase(sequence.begin() + randIndex);
@@ -1231,7 +1266,7 @@ int main()
     //cout << " PLEASE SEND YOUR RESULTS TO GRACE INCLUDING EACH ROUND'S TIME AND COMPLETIONS STATUS. DO NOT ATTEMPT TO COPY THE RESULTS FROM THE TERMINAL, JUST TYPE THEM OUT IN AN EMAIL AND SEND IT. " << endl;
     for (unsigned i = 0; i < grandList.size(); i++)
     {
-        cout << "ROUND " << get<0>(grandList[i]) << ": Time in seconds\t " << get<1>(grandList[i])  << " Finished Successfully? [0-> no, 1->Yes] " << get<2>(grandList[i])  << endl;
+        cout << "ROUND " << get<0>(grandList[i]) << ": Time in seconds\t " << get<1>(grandList[i]) << " Finished Successfully? [0-> no, 1->Yes] " << get<2>(grandList[i]) << endl;
     }
     cout << "Program Completion" << endl;
     /*
