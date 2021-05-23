@@ -268,10 +268,60 @@ void printVector(std::pair<string, char> setOfArrangements[5][5])
     }
 }
 
-bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
+bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet, int k)
 {
+
+    for (unsigned i = k; i < gameSet.size(); i++)
+    {
+        cout << gameSet[i]->getColorSet().size() << endl;
+        if (gameSet[i]->getColorSet().size() != 5)
+        {
+            cout << "ERROR: User put too many or too little inputs " << endl;
+            return false;
+        }
+    }
+
+    //cout << "FLAG 1" << endl;
+
+    for (unsigned bigRow = 0; bigRow < correctSet.size(); bigRow++)
+    {
+        cout << "bigRow " << bigRow << endl;
+        for (unsigned bigCol = 0; bigCol < correctSet[bigRow]->getColorSet().size(); bigCol++)
+        {
+            cout << "bigRow " << bigCol << endl;
+
+            for (unsigned smallRow = 0; smallRow < gameSet.size(); smallRow++)
+            {
+                for (unsigned smallCol = 0; smallCol < gameSet[bigRow]->getSet().size(); smallCol++)
+                {
+                    if (gameSet[smallRow]->getColorSet().at(smallCol).first == correctSet[bigRow]->getSet().at(smallRow))
+                    {
+                        gameSet[smallRow]->getColorSet().erase(gameSet[smallRow]->getColorSet().begin() + smallCol);
+                        // cout << "erasure " << endl;
+                    }
+                }
+            }
+        }
+    }
+
+    //cout << "FLAG 2" << endl;
     for (unsigned i = 0; i < gameSet.size(); i++)
     {
+        cout << "sizing " << gameSet[i]->getCategory() << gameSet[i]->getColorSet().size() << endl;
+        if (gameSet[i]->getColorSet().size() != 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
+{
+
+    for (unsigned i = 0; i < gameSet.size(); i++)
+    {
+
         if (gameSet[i]->getSet().size() != 5)
         {
             cout << "ERROR: User put too many or too little inputs " << endl;
@@ -404,12 +454,6 @@ void roundOne(vector<category *> &input)
 
             continue;
         }
-        if (listOfWords.size() == 0)
-        {
-            cout << "All Entries have been placed" << endl;
-
-            break;
-        }
 
         if (!(alpha >> word))
         {
@@ -479,6 +523,12 @@ void roundOne(vector<category *> &input)
 
         default:
             cout << "BAD COMMAND" << endl;
+        }
+        if (listOfWords.size() == 0)
+        {
+            cout << "All Entries have been placed" << endl;
+
+            break;
         }
         std::string userinput;
         cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
@@ -628,6 +678,7 @@ void roundTwo(vector<category *> &input, vector<char> colors)
             {
                 break;
             }
+            fullList[category]->remove(word, 1);
             listOfWords.push_back(std::make_pair(word, getColor(copyOfListWords, word)));
         }
         break;
@@ -648,6 +699,8 @@ void roundTwo(vector<category *> &input, vector<char> colors)
             else
             {
                 fullList[category]->addToSet(word, getColor(listOfWords, word));
+                fullList[category]->addToSet(word);
+
                 removeElement(listOfWords, word);
             }
         }
@@ -655,6 +708,11 @@ void roundTwo(vector<category *> &input, vector<char> colors)
 
         default:
             cout << "BAD COMMAND" << endl;
+        }
+        if (listOfWords.size() == 0)
+        {
+            cout << "All Entries have been placed" << endl;
+            break;
         }
         std::string userinput;
         cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
@@ -730,7 +788,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
     for (int i = 0; i < 4; i++)
     {
         fullList.push_back(new category(input[i]->getCategory()));
-        cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
+        // cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
     }
 
     std::string userinput;
@@ -776,11 +834,6 @@ void roundThree(vector<category *> &input, vector<char> colors)
 
             continue;
         }
-        if (listOfWords.size() == 0)
-        {
-            cout << "All Entries have been placed" << endl;
-            break;
-        }
 
         if (!(alpha >> word))
         {
@@ -824,6 +877,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
             {
                 break;
             }
+            fullList[category]->remove(word, 1);
             listOfWords.push_back(std::make_pair(word, getColor(copyOfListWords, word)));
         }
         break;
@@ -844,6 +898,8 @@ void roundThree(vector<category *> &input, vector<char> colors)
             else
             {
                 fullList[category]->addToSet(word, getColor(listOfWords, word));
+                fullList[category]->addToSet(word);
+
                 removeElement(listOfWords, word);
             }
         }
@@ -851,6 +907,11 @@ void roundThree(vector<category *> &input, vector<char> colors)
 
         default:
             cout << "BAD COMMAND" << endl;
+        }
+        if (listOfWords.size() == 0)
+        {
+            cout << "All Entries have been placed" << endl;
+            break;
         }
         std::string userinput;
         cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
@@ -862,6 +923,7 @@ void roundThree(vector<category *> &input, vector<char> colors)
 
         userinput.clear();
     }
+
     auto end = high_resolution_clock::now();
     double time = duration_cast<seconds>(end - start).count();
     cout << "Completion time " << time << " seconds" << endl;
@@ -913,6 +975,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
     {
         fullList.push_back(new category(input[i]->getCategory()));
         cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
+        cout << input[i]->getColorSet().size() << endl;
     }
 
     std::string userinput;
@@ -958,11 +1021,6 @@ void roundFour(vector<category *> &input, vector<char> colors)
 
             continue;
         }
-        if (listOfWords.size() == 0)
-        {
-            cout << "All Entries have been placed" << endl;
-            break;
-        }
 
         if (!(alpha >> word))
         {
@@ -1006,6 +1064,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
             {
                 break;
             }
+            fullList[category]->remove(word, 1);
             listOfWords.push_back(std::make_pair(word, getColor(copyOfListWords, word)));
         }
         break;
@@ -1026,6 +1085,8 @@ void roundFour(vector<category *> &input, vector<char> colors)
             else
             {
                 fullList[category]->addToSet(word, getColor(listOfWords, word));
+                fullList[category]->addToSet(word);
+
                 removeElement(listOfWords, word);
             }
         }
@@ -1033,6 +1094,11 @@ void roundFour(vector<category *> &input, vector<char> colors)
 
         default:
             cout << "BAD COMMAND" << endl;
+        }
+        if (listOfWords.size() == 0)
+        {
+            cout << "All Entries have been placed" << endl;
+            break;
         }
         std::string userinput;
         cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
@@ -1047,6 +1113,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
     auto end = high_resolution_clock::now();
     double time = duration_cast<seconds>(end - start).count();
     cout << "Completion time " << time << " seconds" << endl;
+    // cout << fullList.at(0)->getColorSet().size() << endl;
     if (isCorrectSet(input, fullList))
     {
         grandList.push_back(std::make_pair(time, true));
@@ -1101,7 +1168,7 @@ int main()
         }
     }
     printRoundPrompt();
-
+    /*
     vector<int> sequence;
     sequence.push_back(0);
     sequence.push_back(1);
@@ -1142,13 +1209,16 @@ int main()
         }
         sequence.erase(sequence.begin() + randIndex);
     }
+    cout << "========================================================================" << endl;
+
     cout << "Here are your results " << endl;
+    //cout << " PLEASE SEND YOUR RESULTS TO GRACE INCLUDING EACH ROUND'S TIME AND COMPLETIONS STATUS. DO NOT ATTEMPT TO COPY THE RESULTS FROM THE TERMINAL, JUST TYPE THEM OUT IN AN EMAIL AND SEND IT. " << endl;
     for (unsigned i = 0; i < grandList.size(); i++)
     {
         cout << "ROUND " << i << ": Time\t " << grandList[i].first << " Finished Successfully? [0-> no, 1->Yes] " << grandList[i].second << endl;
     }
     cout << "Program Completion" << endl;
-    /*
+    */
     string roundInput;
     while (getline(cin, roundInput))
     {
@@ -1184,7 +1254,6 @@ int main()
 
         printRoundPrompt();
     }
-    */
 
     clearMemory(workingSet);
 }
