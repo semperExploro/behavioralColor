@@ -1166,7 +1166,7 @@ void startMenu()
             continue;
         }
         cout << endl;
-        cout << "Invalid Input";
+        cout << "Invalid Input. ";
         cout << "Do you want to start? [Y/N] Case Sensitive: ";
     }
 }
