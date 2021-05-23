@@ -13,8 +13,9 @@ using std::endl;
 using std::string;
 using std::vector;
 using namespace std;
-
 using namespace chrono;
+
+vector<pair<double, bool>> grandList;
 
 vector<category *> loadSet()
 {
@@ -319,7 +320,7 @@ char getColor(vector<std::pair<string, char>> &input, string word)
             return input[i].second;
         }
     }
-   // cout << "No color " << endl;
+    // cout << "No color " << endl;
     return 0;
 }
 
@@ -480,16 +481,18 @@ void roundOne(vector<category *> &input)
         userinput.clear();
     }
     auto end = high_resolution_clock::now();
-
+    double time = duration_cast<seconds>(end - start).count();
+    cout << "Completion time " << time << " seconds" << endl;
     if (isCorrectSet(input, fullList))
     {
-        cout << "Program ends with user successful attempt" << endl;
+        grandList.push_back(std::make_pair(time, true));
+        cout << "Round ends with user successful attempt" << endl;
     }
     else
     {
-        cout << "Program ends with user unsuccessful attempt" << endl;
+        grandList.push_back(std::make_pair(time, false));
+        cout << "Round ends with user unsuccessful attempt" << endl;
     }
-    cout << "Completion time " << duration_cast<seconds>(end - start).count() << " seconds" << endl;
     cout << "---------------------------------------------------------------" << endl;
 }
 
@@ -653,17 +656,19 @@ void roundTwo(vector<category *> &input, vector<char> colors)
         userinput.clear();
     }
     auto end = high_resolution_clock::now();
-
+    double time = duration_cast<seconds>(end - start).count();
+    cout << "Completion time " << time << " seconds" << endl;
     if (isCorrectSet(input, fullList))
     {
-        cout << "Program ends with user successful attempt" << endl;
+        grandList.push_back(std::make_pair(time, true));
+        cout << "Round ends with user successful attempt" << endl;
     }
     else
     {
-        cout << "Program ends with user unsuccessful attempt" << endl;
+        grandList.push_back(std::make_pair(time, false));
+        cout << "Round ends with user unsuccessful attempt" << endl;
     }
-    cout << "Completion time " << duration_cast<seconds>(end - start).count() << " seconds" << endl;
-    cout << "END OF ROUND -----------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
 }
 
 void roundThree(vector<category *> &input, vector<char> colors)
@@ -863,17 +868,19 @@ void roundThree(vector<category *> &input, vector<char> colors)
         userinput.clear();
     }
     auto end = high_resolution_clock::now();
-
+    double time = duration_cast<seconds>(end - start).count();
+    cout << "Completion time " << time << " seconds" << endl;
     if (isCorrectSet(input, fullList))
     {
-        cout << "Program ends with user successful attempt" << endl;
+        grandList.push_back(std::make_pair(time, true));
+        cout << "Round ends with user successful attempt" << endl;
     }
     else
     {
-        cout << "Program ends with user unsuccessful attempt" << endl;
+        grandList.push_back(std::make_pair(time, false));
+        cout << "Round ends with user unsuccessful attempt" << endl;
     }
-    cout << "Completion time " << duration_cast<seconds>(end - start).count() << " seconds" << endl;
-    cout << "END OF ROUND -----------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
 }
 
 void roundFour(vector<category *> &input, vector<char> colors)
@@ -1012,7 +1019,7 @@ void roundFour(vector<category *> &input, vector<char> colors)
             {
                 for (int col = 0; col < 5; col++)
                 {
-                  //  cout << "COLOR VALUE " << getColor(copyOfListWords, word) << endl;
+                    //  cout << "COLOR VALUE " << getColor(copyOfListWords, word) << endl;
                     if (setOfArrangements[row][col].first == " " && getColor(copyOfListWords, word) == colors.at(row))
                     {
                         //u          cout << "Intervnetion " << endl;
@@ -1069,21 +1076,41 @@ void roundFour(vector<category *> &input, vector<char> colors)
         userinput.clear();
     }
     auto end = high_resolution_clock::now();
-
+    double time = duration_cast<seconds>(end - start).count();
+    cout << "Completion time " << time << " seconds" << endl;
     if (isCorrectSet(input, fullList))
     {
-        cout << "Program ends with user successful attempt" << endl;
+        grandList.push_back(std::make_pair(time, true));
+        cout << "Round ends with user successful attempt" << endl;
     }
     else
     {
-        cout << "Program ends with user unsuccessful attempt" << endl;
+        grandList.push_back(std::make_pair(time, false));
+        cout << "Round ends with user unsuccessful attempt" << endl;
     }
-    cout << "Completion time " << duration_cast<seconds>(end - start).count() << " seconds" << endl;
-    cout << "END OF ROUND -----------------------------------------------------------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
 }
+
+void startMenu()
+{
+    cout << "Do you want to start? [Y/N] Case Sensitive: ";
+    string roundInput;
+    while (getline(cin, roundInput))
+    {
+        if (roundInput.empty())
+        {
+            continue;
+        }
+        if (roundInput == "Y")
+        {
+            break;
+        }
+    }
+}
+
 int main()
 {
-    std::cout << "MindHive Program V 1.1.0 BETA" << endl;
+    std::cout << "MindHive Program V 1.2.0 BETA" << endl;
 
     vector<char> colors;
     colors.push_back('B');
@@ -1104,8 +1131,50 @@ int main()
             return 1;
         }
     }
+    //printRoundPrompt();
 
-    printRoundPrompt();
+    vector<int> sequence;
+    sequence.push_back(0);
+    sequence.push_back(1);
+    sequence.push_back(2);
+    sequence.push_back(3);
+
+    for (int i = 0; i < 4; i++)
+    {
+        int randIndex = (int)(sequence.size() * (rand() / (RAND_MAX + 1.0)));
+        int getRandom = sequence.at(randIndex);
+        switch (getRandom)
+        {
+        case 0:
+            cout << "You're about to start ROUND 1 - Words of Same Color. ";
+            startMenu();
+            roundOne(workingSet);
+            break;
+        case 1:
+            cout << "You're about to start ROUND 2 - Words of Random Different Colors. ";
+            startMenu();
+            roundTwo(workingSet, colors);
+            break;
+        case 2:
+            cout << "You're about to start ROUND 3 - Words of With Wrong Color Category. ";
+            startMenu();
+            roundThree(workingSet, colors);
+            break;
+        case 3:
+            cout << "You're about to start ROUND 4 - Words of Correct Color Category. ";
+            startMenu();
+            roundFour(workingSet, colors);
+            break;
+        }
+        sequence.erase(sequence.begin() + randIndex);
+    }
+    cout << "Here are your results " << endl;
+    for (unsigned i = 0; i < grandList.size(); i++)
+    {
+        cout << "ROUND " << i << ": Time\t " << grandList[i].first << " Finished Successfully? [0-> no, 1->Yes] " << grandList[i].second << endl;
+    }
+    cout << "Program Completion" << endl;
+    /*
     string roundInput;
     while (getline(cin, roundInput))
     {
@@ -1139,6 +1208,6 @@ int main()
         }
         printRoundPrompt();
     }
-
+*/
     clearMemory(workingSet);
 }
