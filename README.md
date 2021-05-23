@@ -13,7 +13,7 @@ The program comprises of four rounds in order to demonstrate affects of color in
 
 In all rounds, the words are displayed in random order. 
 
-### Running Program
+## Running Program
 
 You can try the program at: https://replit.com/@semperExploro/MindHive?v=1
 Or you can try on your computer by doing "make", and the executable "mindHive" should appear. This only works on linux and MacOS. Please note that the make file is not configured to run on a generic MAC/Linux computer but is for a Windows Machine. Install appropriate libraries. To run on windows, configure your computer so you can compile a c++ file via make. 
