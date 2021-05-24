@@ -481,12 +481,16 @@ bool roundOne(vector<category *> &input)
             continue;
         }
         bool isFound = false;
-        for (unsigned i = 0; i < copyOfListWords.size(); i++)
+        for (unsigned i = 0; i < listOfWords.size(); i++)
         {
-            if (copyOfListWords[i] == word)
+            if (listOfWords[i] == word)
             {
                 isFound = true;
             }
+        }
+        if (command == 'R')
+        {
+            isFound = true;
         }
         if (!isFound)
         {
@@ -582,7 +586,6 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
         {
             //   srand(time(0));
 
-
             int getRandomSetNumber = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
             int getRandomColorNumber = (int)(colors.size() * (rand() / (RAND_MAX + 1.0)));
 
@@ -675,12 +678,16 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
             continue;
         }
         bool isFound = false;
-        for (unsigned i = 0; i < copyOfListWords.size(); i++)
+        for (unsigned i = 0; i < listOfWords.size(); i++)
         {
-            if (copyOfListWords[i].first == word)
+            if (listOfWords[i].first == word)
             {
                 isFound = true;
             }
+        }
+        if (command == 'R')
+        {
+            isFound = true;
         }
         if (!isFound)
         {
@@ -715,6 +722,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
             }
             else
             {
+
                 fullList[category]->addToSet(word, getColor(listOfWords, word));
                 fullList[category]->addToSet(word);
 
@@ -884,12 +892,16 @@ bool roundThree(vector<category *> &input, vector<char> colors)
             continue;
         }
         bool isFound = false;
-        for (unsigned i = 0; i < copyOfListWords.size(); i++)
+        for (unsigned i = 0; i < listOfWords.size(); i++)
         {
-            if (copyOfListWords[i].first == word)
+            if (listOfWords[i].first == word)
             {
                 isFound = true;
             }
+        }
+        if (command == 'R')
+        {
+            isFound = true;
         }
         if (!isFound)
         {
@@ -1079,12 +1091,16 @@ bool roundFour(vector<category *> &input, vector<char> colors)
             continue;
         }
         bool isFound = false;
-        for (unsigned i = 0; i < copyOfListWords.size(); i++)
+        for (unsigned i = 0; i < listOfWords.size(); i++)
         {
-            if (copyOfListWords[i].first == word)
+            if (listOfWords[i].first == word)
             {
                 isFound = true;
             }
+        }
+        if (command == 'R')
+        {
+            isFound = true;
         }
         if (!isFound)
         {

@@ -13,6 +13,7 @@ Category.o: Category.h Category.cpp
 	$(CC) -c Category.cpp $(CFLAGS)
 
 
+
 .PHONY: clean all
 clean:
 	rm -f *.o 
