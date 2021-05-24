@@ -67,6 +67,7 @@ vector<category *> loadSet()
             set[thisSetName]->addToSet(line);
         }
     }
+    myfile.close();
     return set;
 }
 
@@ -539,6 +540,7 @@ bool roundOne(vector<category *> &input)
             if (isCorrectSet(input, fullList))
             {
                 cout << "Round ends with user successful attempt" << endl;
+
                 break;
             }
             else
@@ -570,6 +572,8 @@ bool roundOne(vector<category *> &input)
     cout << "Completion time " << time << " seconds" << endl;
     grandList.push_back(std::make_tuple(1, time, true));
     cout << "---------------------------------------------------------------" << endl;
+    clearMemory(fullList);
+
     return true;
 }
 
@@ -740,6 +744,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
             if (isCorrectSet(input, fullList))
             {
                 cout << "Round ends with user successful attempt" << endl;
+
                 break;
             }
             else
@@ -770,6 +775,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
     double time = duration_cast<seconds>(end - start).count();
     cout << "Completion time " << time << " seconds" << endl;
     grandList.push_back(std::make_tuple(2, time, true));
+    clearMemory(fullList);
 
     cout << "---------------------------------------------------------------" << endl;
     return true;
@@ -953,6 +959,7 @@ bool roundThree(vector<category *> &input, vector<char> colors)
             if (isCorrectSet(input, fullList))
             {
                 cout << "Round ends with user successful attempt" << endl;
+
                 break;
             }
             else
@@ -976,6 +983,7 @@ bool roundThree(vector<category *> &input, vector<char> colors)
         printVector(listOfWords);
         cout << "========================================================================" << endl;
         cout << "User input: ";
+        clearMemory(fullList);
 
         userinput.clear();
     }
@@ -1152,6 +1160,7 @@ bool roundFour(vector<category *> &input, vector<char> colors)
             if (isCorrectSet(input, fullList))
             {
                 cout << "Round ends with user successful attempt" << endl;
+
                 break;
             }
             else
@@ -1184,6 +1193,7 @@ bool roundFour(vector<category *> &input, vector<char> colors)
     // cout << fullList.at(0)->getColorSet().size() << endl;
 
     grandList.push_back(std::make_tuple(4, time, true));
+    clearMemory(fullList);
 
     cout << "---------------------------------------------------------------" << endl;
     return true;
@@ -1298,7 +1308,7 @@ int main()
     {
         try
         {
-            cout << "ROUND " << get<0>(grandList[i]) << ": Time in seconds\t " << get<1>(grandList[i]) << endl;
+            cout << "ROUND " << get<0>(grandList[i]) << ": Time in seconds\t " << get<1>(grandList[i])<<" Status "<< get<2>(grandList[i])  << endl;
         }
         catch (const std::exception &e)
         {
@@ -1344,4 +1354,5 @@ int main()
     }
     */
     clearMemory(workingSet);
+    return 0;
 }
