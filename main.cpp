@@ -577,11 +577,11 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
     {
         vector<string> copyOfSet = input[i]->getSet();
         // cout << "i value " << i << " size " << copyOfSet.size() << endl;
-        srand(time(0));
 
         for (int k = 0; k < 5; k++)
         {
             //   srand(time(0));
+
 
             int getRandomSetNumber = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
             int getRandomColorNumber = (int)(colors.size() * (rand() / (RAND_MAX + 1.0)));
@@ -1282,7 +1282,7 @@ int main()
     {
         try
         {
-            cout << "ROUND " << get<0>(grandList[i]) << ": Time in seconds\t " << get<1>(grandList[i])  << endl;
+            cout << "ROUND " << get<0>(grandList[i]) << ": Time in seconds\t " << get<1>(grandList[i]) << endl;
         }
         catch (const std::exception &e)
         {
