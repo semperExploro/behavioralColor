@@ -440,8 +440,25 @@ bool roundOne(vector<category *> &input)
         if (command == 'Q')
         {
             cout << "Quitting" << endl;
-            break;
+            if (isCorrectSet(input, fullList))
+            {
+                cout << "Round ends with user successful attempt" << endl;
+                break;
+            }
+            else
+            {
+                // grandList.push_back(std::make_tuple(4, time, false));
+                cout << "Round ends with user unsuccessful attempt. Please change incorrect answers" << endl;
+            }
+            cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
+            printCategory(fullList);
+            cout << "WORD BANK --------------------------------------------------------------" << endl;
+            printVector(listOfWords);
+            cout << "========================================================================" << endl;
+
+            continue;
         }
+
         if (command == 'H')
         {
             cout << "COMMANDS" << endl;
@@ -546,18 +563,7 @@ bool roundOne(vector<category *> &input)
     auto end = high_resolution_clock::now();
     double time = duration_cast<seconds>(end - start).count();
     cout << "Completion time " << time << " seconds" << endl;
-    if (isCorrectSet(input, fullList))
-    {
-        grandList.push_back(std::make_tuple(1, time, true));
-        cout << "Round ends with user successful attempt" << endl;
-        return true;
-    }
-    else
-    {
-        // grandList.push_back(std::make_tuple(4, time, false));
-        cout << "Round ends with user unsuccessful attempt" << endl;
-        return false;
-    }
+    grandList.push_back(std::make_tuple(1, time, true));
     cout << "---------------------------------------------------------------" << endl;
     return true;
 }
@@ -629,7 +635,23 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
         if (command == 'Q')
         {
             cout << "Quitting" << endl;
-            break;
+            if (isCorrectSet(input, fullList))
+            {
+                cout << "Round ends with user successful attempt" << endl;
+                break;
+            }
+            else
+            {
+                // grandList.push_back(std::make_tuple(4, time, false));
+                cout << "Round ends with user unsuccessful attempt. Please change incorrect answers" << endl;
+                cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
+                printCategory(fullList, 0);
+                cout << "WORD BANK --------------------------------------------------------------" << endl;
+                printVector(listOfWords);
+                cout << "========================================================================" << endl;
+
+                continue;
+            }
         }
         if (command == 'H')
         {
@@ -737,18 +759,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
     auto end = high_resolution_clock::now();
     double time = duration_cast<seconds>(end - start).count();
     cout << "Completion time " << time << " seconds" << endl;
-    if (isCorrectSet(input, fullList))
-    {
-        grandList.push_back(std::make_tuple(2, time, true));
-        cout << "Round ends with user successful attempt" << endl;
-        return true;
-    }
-    else
-    {
-        // grandList.push_back(std::make_tuple(4, time, false));
-        cout << "Round ends with user unsuccessful attempt" << endl;
-        return false;
-    }
+    grandList.push_back(std::make_tuple(2, time, true));
 
     cout << "---------------------------------------------------------------" << endl;
     return true;
@@ -831,7 +842,23 @@ bool roundThree(vector<category *> &input, vector<char> colors)
         if (command == 'Q')
         {
             cout << "Quitting" << endl;
-            break;
+            if (isCorrectSet(input, fullList))
+            {
+                cout << "Round ends with user successful attempt" << endl;
+                break;
+            }
+            else
+            {
+                // grandList.push_back(std::make_tuple(4, time, false));
+                cout << "Round ends with user unsuccessful attempt. Please change incorrect answers" << endl;
+                cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
+                printCategory(fullList, 0);
+                cout << "WORD BANK --------------------------------------------------------------" << endl;
+                printVector(listOfWords);
+                cout << "========================================================================" << endl;
+
+                continue;
+            }
         }
         if (command == 'H')
         {
@@ -941,18 +968,8 @@ bool roundThree(vector<category *> &input, vector<char> colors)
     auto end = high_resolution_clock::now();
     double time = duration_cast<seconds>(end - start).count();
     cout << "Completion time " << time << " seconds" << endl;
-    if (isCorrectSet(input, fullList))
-    {
-        grandList.push_back(std::make_tuple(3, time, true));
-        cout << "Round ends with user successful attempt" << endl;
-        return true;
-    }
-    else
-    {
-        // grandList.push_back(std::make_tuple(4, time, false));
-        cout << "Round ends with user unsuccessful attempt" << endl;
-        return false;
-    }
+    grandList.push_back(std::make_tuple(3, time, true));
+
     cout << "---------------------------------------------------------------" << endl;
     return true;
 }
@@ -1019,7 +1036,23 @@ bool roundFour(vector<category *> &input, vector<char> colors)
         if (command == 'Q')
         {
             cout << "Quitting" << endl;
-            break;
+            if (isCorrectSet(input, fullList))
+            {
+                cout << "Round ends with user successful attempt" << endl;
+                break;
+            }
+            else
+            {
+                // grandList.push_back(std::make_tuple(4, time, false));
+                cout << "Round ends with user unsuccessful attempt. Please change incorrect answers" << endl;
+                cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
+                printCategory(fullList, 0);
+                cout << "WORD BANK --------------------------------------------------------------" << endl;
+                printVector(listOfWords);
+                cout << "========================================================================" << endl;
+
+                continue;
+            }
         }
         if (command == 'H')
         {
@@ -1129,18 +1162,9 @@ bool roundFour(vector<category *> &input, vector<char> colors)
     double time = duration_cast<seconds>(end - start).count();
     cout << "Completion time " << time << " seconds" << endl;
     // cout << fullList.at(0)->getColorSet().size() << endl;
-    if (isCorrectSet(input, fullList))
-    {
-        grandList.push_back(std::make_tuple(4, time, true));
-        cout << "Round ends with user successful attempt" << endl;
-        return true;
-    }
-    else
-    {
-        // grandList.push_back(std::make_tuple(4, time, false));
-        cout << "Round ends with user unsuccessful attempt" << endl;
-        return false;
-    }
+
+    grandList.push_back(std::make_tuple(4, time, true));
+
     cout << "---------------------------------------------------------------" << endl;
     return true;
 }
@@ -1218,44 +1242,32 @@ int main()
             //  cout << "You're about to start ROUND 1 - Words of Same Color. ";
             cout << "You're about to start a new round 1. ";
             startMenu();
-            while (!roundOne(workingSet))
-            {
-                cout << "You're about to start a new round 1. ";
-                startMenu();
-            }
+
+            startMenu();
+            roundOne(workingSet);
+            break;
             break;
         case 1:
             // cout << "You're about to start ROUND 2 - Words of Random Different Colors. ";
             cout << "You're about to start a new round 2. ";
 
             startMenu();
-            while (!roundTwo(workingSet, colors))
-            {
-                cout << "You're about to start a new round 2. ";
-                startMenu();
-            }
+
+            roundTwo(workingSet, colors);
             break;
         case 2:
             // cout << "You're about to start ROUND 3 - Words of With Wrong Color Category. ";
             cout << "You're about to start a new round 3. ";
 
             startMenu();
-            while (!roundThree(workingSet, colors))
-            {
-                cout << "You're about to start a new round 3. ";
-                startMenu();
-            }
+            roundThree(workingSet, colors);
             break;
         case 3:
             //  cout << "You're about to start ROUND 4 - Words of Correct Color Category. ";
             cout << "You're about to start a new round 4. ";
 
             startMenu();
-            while (!roundFour(workingSet, colors))
-            {
-                cout << "You're about to start a new round 4. ";
-                startMenu();
-            }
+            roundFour(workingSet, colors);
             break;
         }
         sequence.erase(sequence.begin() + randIndex);
