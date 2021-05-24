@@ -1246,8 +1246,6 @@ int main()
             //  cout << "You're about to start ROUND 1 - Words of Same Color. ";
             cout << "You're about to start a new round 1. ";
             startMenu();
-
-            startMenu();
             roundOne(workingSet);
             break;
             break;
