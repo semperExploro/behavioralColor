@@ -1,2 +1,3 @@
 language = "bash"
-run = "echo MindHive "
+run2 = "echo Wait for program to finish loading before doing anything. You'll see a prompt [Y/N] which signifies the beginning of the program"
+run = "./mindHive "
