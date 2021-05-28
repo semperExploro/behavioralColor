@@ -583,7 +583,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
             int getRandomSetNumber = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
             int getRandomColorNumber = (int)(colors.size() * (rand() / (RAND_MAX + 1.0)));
 
-            cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
+           // cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
 
             listOfWords.push_back(std::make_pair(copyOfSet[getRandomSetNumber], colors.at(getRandomColorNumber)));
             //cout<<"done push back"<<endl;
