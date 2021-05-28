@@ -165,7 +165,7 @@ void printVector(vector<string> input)
     while (input.size() != 0)
     {
         int getRandom = (int)(input.size() * (rand() / (RAND_MAX + 1.0)));
-       // cout << input[getRandom];
+        cout << input[getRandom];
         for (int i = input[getRandom].length(); i < 20; i++)
         {
             cout << " ";
@@ -409,6 +409,7 @@ bool roundOne(vector<category *> &input)
     cout << "CATEGORIES AND ITEMS SO FAR --------------------------------------------" << endl;
     printCategory(fullList);
     cout << "WORD BANK --------------------------------------------------------------" << endl;
+  // cout<<"sizing "<< listOfWords.size()<<endl;
     printVector(listOfWords);
     cout << "========================================================================" << endl;
     cout << "User input: ";
