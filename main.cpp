@@ -25,7 +25,6 @@ vector<category *> loadSet()
     colors.push_back('G');
     colors.push_back('Y');
     colors.push_back('M');
-    colors.push_back('C');
 
     //load categories
     std::ifstream myfile;
@@ -37,7 +36,7 @@ vector<category *> loadSet()
         throw i;
         cout << "File is missing. Did you include the file 'words.txt' in the same folder as the mindHive.exe?" << endl;
     }
-    for (unsigned i = 0; i < 4; i++)
+    for (unsigned i = 0; i < 3; i++)
     {
         string line;
         getline(myfile, line);
@@ -73,7 +72,7 @@ vector<category *> loadSet()
 
 void clearMemory(vector<category *> &input)
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
         delete input[i];
     }
@@ -126,10 +125,7 @@ void printCategory(vector<category *> &fullList, int k)
             case 'U':
                 Terminal::color_fg(false, Terminal::YELLOW);
                 break;
-            case 'C':
-                Terminal::color_fg(false, Terminal::RED);
-
-                break;
+      
             default:
                 Terminal::color_fg(false, Terminal::WHITE);
             }
@@ -176,7 +172,7 @@ void printVector(vector<string> input)
         }
         input.erase(input.begin() + getRandom);
         i++;
-        if (i % 5 == 0)
+        if (i % 4 == 0)
         {
             cout << "\n";
         }
@@ -205,10 +201,7 @@ void printVector(vector<std::pair<string, char>> input)
         case 'U':
             Terminal::color_fg(false, Terminal::YELLOW);
             break;
-        case 'C':
-            Terminal::color_fg(false, Terminal::RED);
-
-            break;
+      
         default:
             Terminal::color_fg(false, Terminal::WHITE);
         }
@@ -220,7 +213,7 @@ void printVector(vector<std::pair<string, char>> input)
         }
         input.erase(input.begin() + getRandom);
         i++;
-        if (i % 5 == 0)
+        if (i % 4 == 0)
         {
             cout << "\n";
         }
@@ -232,9 +225,9 @@ void printVector(vector<std::pair<string, char>> input)
 
 void printVector(std::pair<string, char> setOfArrangements[5][5])
 {
-    for (int row = 0; row < 5; row++)
+    for (int row = 0; row < 3; row++)
     {
-        for (int col = 0; col < 5; col++)
+        for (int col = 0; col < 4; col++)
         {
             char chosenColor = setOfArrangements[row][col].second;
             switch (chosenColor)
@@ -251,10 +244,7 @@ void printVector(std::pair<string, char> setOfArrangements[5][5])
                 Terminal::color_fg(false, Terminal::YELLOW);
 
                 break;
-            case 'C':
-                Terminal::color_fg(false, Terminal::RED);
-
-                break;
+            
             default:
                 Terminal::color_fg(false, Terminal::WHITE);
                 Terminal::color_fg(false, Terminal::WHITE);
@@ -276,7 +266,7 @@ bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet, int
     for (unsigned i = k; i < gameSet.size(); i++)
     {
         cout << gameSet[i]->getColorSet().size() << endl;
-        if (gameSet[i]->getColorSet().size() != 5)
+        if (gameSet[i]->getColorSet().size() != 4)
         {
             cout << "ERROR: User put too many or too little inputs " << endl;
             return false;
@@ -324,7 +314,7 @@ bool isCorrectSet(vector<category *> correctSet, vector<category *> gameSet)
     for (unsigned i = 0; i < gameSet.size(); i++)
     {
 
-        if (gameSet[i]->getSet().size() != 5)
+        if (gameSet[i]->getSet().size() != 4)
         {
             cout << "ERROR: User put too many or too little inputs " << endl;
             return false;
@@ -385,7 +375,7 @@ bool roundOne(vector<category *> &input)
     {
         vector<string> copyOfSet = input[i]->getSet();
         //cout << "i value " << i << " size " << copyOfSet.size() << endl;
-        for (int k = 0; k < 5; k++)
+        for (int k = 0; k < 4; k++)
         {
             srand(time(0));
 
@@ -409,7 +399,7 @@ bool roundOne(vector<category *> &input)
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
     cout << "\tTo Help: 'H'" << endl;
     vector<category *> fullList;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
         fullList.push_back(new category(input[i]->getCategory()));
         cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
@@ -474,7 +464,7 @@ bool roundOne(vector<category *> &input)
 
             continue;
         }
-        if (!(category <= 3 && category >= 0))
+        if (!(category <= 2 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
             cout << "User input: ";
@@ -586,7 +576,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
         vector<string> copyOfSet = input[i]->getSet();
         // cout << "i value " << i << " size " << copyOfSet.size() << endl;
 
-        for (int k = 0; k < 5; k++)
+        for (int k = 0; k < 4; k++)
         {
             //   srand(time(0));
 
@@ -611,7 +601,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
     cout << "\tTo Help: 'H'" << endl;
     vector<category *> fullList;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
         fullList.push_back(new category(input[i]->getCategory()));
         cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
@@ -674,7 +664,7 @@ bool roundTwo(vector<category *> &input, vector<char> colors)
 
             continue;
         }
-        if (!(category <= 3 && category >= 0))
+        if (!(category <= 2 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
             cout << "User input: ";
@@ -802,7 +792,7 @@ bool roundThree(vector<category *> &input, vector<char> colors)
             continue;
         }
 
-        for (int k = 0; k < 5; k++)
+        for (int k = 0; k < 4; k++)
         {
 
             //cout << "random number " << getRandomSetNumber << "\t" << getRandomColorNumber << endl;
@@ -826,7 +816,7 @@ bool roundThree(vector<category *> &input, vector<char> colors)
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
     cout << "\tTo Help: 'H'" << endl;
     vector<category *> fullList;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
         fullList.push_back(new category(input[i]->getCategory()));
         // cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
@@ -890,7 +880,7 @@ bool roundThree(vector<category *> &input, vector<char> colors)
 
             continue;
         }
-        if (!(category <= 3 && category >= 0))
+        if (!(category <= 2 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
             cout << "User input: ";
@@ -1006,7 +996,7 @@ bool roundFour(vector<category *> &input, vector<char> colors)
     {
         vector<string> copyOfSet = input[i]->getSet();
         // cout << "i value " << i << " size " << copyOfSet.size() << endl;
-        for (int k = 0; k < 5; k++)
+        for (int k = 0; k < 4; k++)
         {
 
             int getRandomSetNumber = (int)(copyOfSet.size() * (rand() / (RAND_MAX + 1.0)));
@@ -1026,7 +1016,7 @@ bool roundFour(vector<category *> &input, vector<char> colors)
     cout << "\tTo Stop or Done Inputting: 'Q'" << endl;
     cout << "\tTo Help: 'H'" << endl;
     vector<category *> fullList;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
         fullList.push_back(new category(input[i]->getCategory()));
         cout << "\t" << (i) << " is " << input[i]->getCategory() << endl;
@@ -1091,7 +1081,7 @@ bool roundFour(vector<category *> &input, vector<char> colors)
 
             continue;
         }
-        if (!(category <= 3 && category >= 0))
+        if (!(category <= 2 && category >= 0))
         {
             cout << "ERROR: Invalid Category" << endl;
             cout << "User input: ";
@@ -1231,7 +1221,6 @@ int main()
 
     vector<char> colors;
     colors.push_back('B');
-    colors.push_back('C');
     colors.push_back('G');
     colors.push_back('U');
 
@@ -1248,7 +1237,7 @@ int main()
             return 1;
         }
     }
-    //   printRoundPrompt();
+      printRoundPrompt();
 
     vector<int> sequence;
     sequence.push_back(0);
@@ -1316,6 +1305,7 @@ int main()
         }
     }
     cout << "Program Completion" << endl;
+    
     /*
     string roundInput;
     while (getline(cin, roundInput))
