@@ -22,6 +22,5 @@ Or you can try on your computer by doing "make", and the executable "mindHive" s
 #### Notes
 
 - This program is still in BETA. Bugs may be apparent. 
-- The program is also not random on each run. Meaning, everytime you run the program the words will be the same. The intent of this program is a demonstrator, not so much as a skills test, thus is only meant to be ran once. 
 - Code style: Because this program was requested to be completed in 2 days, the code is not opitimized. 
 
