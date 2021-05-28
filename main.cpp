@@ -165,7 +165,7 @@ void printVector(vector<string> input)
     while (input.size() != 0)
     {
         int getRandom = (int)(input.size() * (rand() / (RAND_MAX + 1.0)));
-        cout << input[getRandom];
+       // cout << input[getRandom];
         for (int i = input[getRandom].length(); i < 20; i++)
         {
             cout << " ";
