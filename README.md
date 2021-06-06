@@ -1,7 +1,7 @@
 # behavioralColor
 
 ## Description
-Behavioral Color (Mindhive) is a program designed to illustrate the affects of the influence of color on user choices. 
+Behavioral Color is a program designed to illustrate the affects of the influence of color on user choices. 
 
 The program comprises of four rounds in order to demonstrate affects of color influence on decisions. There are four categories that are found in "words.txt", with each category having their respective word and color type. For instance, all words associated with ocean are colored blue. In each round, there are a total of 20 words, with 5 words randomly selected from each category.
 
